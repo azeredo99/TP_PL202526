@@ -1,0 +1,1515 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    ARROW
+    ELSE
+    END
+    FUN
+    IF
+    IS
+    THEN
+    WHEN
+
+Grammar
+
+Rule 0     S' -> Program
+Rule 1     Program -> StmtList
+Rule 2     StmtList -> Stmt
+Rule 3     StmtList -> StmtList Stmt
+Rule 4     Stmt -> E ;
+Rule 5     Stmt -> LET ID : Type = E ;
+Rule 6     Type -> TINT
+Rule 7     Type -> TBOOL
+Rule 8     E -> E + E
+Rule 9     E -> E - E
+Rule 10    E -> E * E
+Rule 11    E -> E / E
+Rule 12    E -> E < E
+Rule 13    E -> E > E
+Rule 14    E -> E LE E
+Rule 15    E -> E GE E
+Rule 16    E -> E EQ E
+Rule 17    E -> E NEQ E
+Rule 18    E -> E AND E
+Rule 19    E -> E OR E
+Rule 20    E -> - E
+Rule 21    E -> ( E )
+Rule 22    E -> NUMBER
+Rule 23    E -> TRUE
+Rule 24    E -> FALSE
+Rule 25    E -> ID
+
+Terminals, with rules where they appear
+
+(                    : 21
+)                    : 21
+*                    : 10
++                    : 8
+-                    : 9 20
+/                    : 11
+:                    : 5
+;                    : 4 5
+<                    : 12
+=                    : 5
+>                    : 13
+AND                  : 18
+ARROW                : 
+ELSE                 : 
+END                  : 
+EQ                   : 16
+FALSE                : 24
+FUN                  : 
+GE                   : 15
+ID                   : 5 25
+IF                   : 
+IS                   : 
+LE                   : 14
+LET                  : 5
+NEQ                  : 17
+NUMBER               : 22
+OR                   : 19
+TBOOL                : 7
+THEN                 : 
+TINT                 : 6
+TRUE                 : 23
+WHEN                 : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+E                    : 4 5 8 8 9 9 10 10 11 11 12 12 13 13 14 14 15 15 16 16 17 17 18 18 19 19 20 21
+Program              : 0
+Stmt                 : 2 3
+StmtList             : 1 3
+Type                 : 5
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . Program
+    (1) Program -> . StmtList
+    (2) StmtList -> . Stmt
+    (3) StmtList -> . StmtList Stmt
+    (4) Stmt -> . E ;
+    (5) Stmt -> . LET ID : Type = E ;
+    (8) E -> . E + E
+    (9) E -> . E - E
+    (10) E -> . E * E
+    (11) E -> . E / E
+    (12) E -> . E < E
+    (13) E -> . E > E
+    (14) E -> . E LE E
+    (15) E -> . E GE E
+    (16) E -> . E EQ E
+    (17) E -> . E NEQ E
+    (18) E -> . E AND E
+    (19) E -> . E OR E
+    (20) E -> . - E
+    (21) E -> . ( E )
+    (22) E -> . NUMBER
+    (23) E -> . TRUE
+    (24) E -> . FALSE
+    (25) E -> . ID
+
+    LET             shift and go to state 5
+    -               shift and go to state 7
+    (               shift and go to state 8
+    NUMBER          shift and go to state 9
+    TRUE            shift and go to state 10
+    FALSE           shift and go to state 11
+    ID              shift and go to state 6
+
+    Program                        shift and go to state 1
+    StmtList                       shift and go to state 2
+    Stmt                           shift and go to state 3
+    E                              shift and go to state 4
+
+state 1
+
+    (0) S' -> Program .
+
+
+
+state 2
+
+    (1) Program -> StmtList .
+    (3) StmtList -> StmtList . Stmt
+    (4) Stmt -> . E ;
+    (5) Stmt -> . LET ID : Type = E ;
+    (8) E -> . E + E
+    (9) E -> . E - E
+    (10) E -> . E * E
+    (11) E -> . E / E
+    (12) E -> . E < E
+    (13) E -> . E > E
+    (14) E -> . E LE E
+    (15) E -> . E GE E
+    (16) E -> . E EQ E
+    (17) E -> . E NEQ E
+    (18) E -> . E AND E
+    (19) E -> . E OR E
+    (20) E -> . - E
+    (21) E -> . ( E )
+    (22) E -> . NUMBER
+    (23) E -> . TRUE
+    (24) E -> . FALSE
+    (25) E -> . ID
+
+    $end            reduce using rule 1 (Program -> StmtList .)
+    LET             shift and go to state 5
+    -               shift and go to state 7
+    (               shift and go to state 8
+    NUMBER          shift and go to state 9
+    TRUE            shift and go to state 10
+    FALSE           shift and go to state 11
+    ID              shift and go to state 6
+
+    Stmt                           shift and go to state 12
+    E                              shift and go to state 4
+
+state 3
+
+    (2) StmtList -> Stmt .
+
+    LET             reduce using rule 2 (StmtList -> Stmt .)
+    -               reduce using rule 2 (StmtList -> Stmt .)
+    (               reduce using rule 2 (StmtList -> Stmt .)
+    NUMBER          reduce using rule 2 (StmtList -> Stmt .)
+    TRUE            reduce using rule 2 (StmtList -> Stmt .)
+    FALSE           reduce using rule 2 (StmtList -> Stmt .)
+    ID              reduce using rule 2 (StmtList -> Stmt .)
+    $end            reduce using rule 2 (StmtList -> Stmt .)
+
+
+state 4
+
+    (4) Stmt -> E . ;
+    (8) E -> E . + E
+    (9) E -> E . - E
+    (10) E -> E . * E
+    (11) E -> E . / E
+    (12) E -> E . < E
+    (13) E -> E . > E
+    (14) E -> E . LE E
+    (15) E -> E . GE E
+    (16) E -> E . EQ E
+    (17) E -> E . NEQ E
+    (18) E -> E . AND E
+    (19) E -> E . OR E
+
+    ;               shift and go to state 13
+    +               shift and go to state 14
+    -               shift and go to state 15
+    *               shift and go to state 16
+    /               shift and go to state 17
+    <               shift and go to state 18
+    >               shift and go to state 19
+    LE              shift and go to state 20
+    GE              shift and go to state 21
+    EQ              shift and go to state 22
+    NEQ             shift and go to state 23
+    AND             shift and go to state 24
+    OR              shift and go to state 25
+
+
+state 5
+
+    (5) Stmt -> LET . ID : Type = E ;
+
+    ID              shift and go to state 26
+
+
+state 6
+
+    (25) E -> ID .
+
+    ;               reduce using rule 25 (E -> ID .)
+    +               reduce using rule 25 (E -> ID .)
+    -               reduce using rule 25 (E -> ID .)
+    *               reduce using rule 25 (E -> ID .)
+    /               reduce using rule 25 (E -> ID .)
+    <               reduce using rule 25 (E -> ID .)
+    >               reduce using rule 25 (E -> ID .)
+    LE              reduce using rule 25 (E -> ID .)
+    GE              reduce using rule 25 (E -> ID .)
+    EQ              reduce using rule 25 (E -> ID .)
+    NEQ             reduce using rule 25 (E -> ID .)
+    AND             reduce using rule 25 (E -> ID .)
+    OR              reduce using rule 25 (E -> ID .)
+    )               reduce using rule 25 (E -> ID .)
+
+
+state 7
+
+    (20) E -> - . E
+    (8) E -> . E + E
+    (9) E -> . E - E
+    (10) E -> . E * E
+    (11) E -> . E / E
+    (12) E -> . E < E
+    (13) E -> . E > E
+    (14) E -> . E LE E
+    (15) E -> . E GE E
+    (16) E -> . E EQ E
+    (17) E -> . E NEQ E
+    (18) E -> . E AND E
+    (19) E -> . E OR E
+    (20) E -> . - E
+    (21) E -> . ( E )
+    (22) E -> . NUMBER
+    (23) E -> . TRUE
+    (24) E -> . FALSE
+    (25) E -> . ID
+
+    -               shift and go to state 7
+    (               shift and go to state 8
+    NUMBER          shift and go to state 9
+    TRUE            shift and go to state 10
+    FALSE           shift and go to state 11
+    ID              shift and go to state 6
+
+    E                              shift and go to state 27
+
+state 8
+
+    (21) E -> ( . E )
+    (8) E -> . E + E
+    (9) E -> . E - E
+    (10) E -> . E * E
+    (11) E -> . E / E
+    (12) E -> . E < E
+    (13) E -> . E > E
+    (14) E -> . E LE E
+    (15) E -> . E GE E
+    (16) E -> . E EQ E
+    (17) E -> . E NEQ E
+    (18) E -> . E AND E
+    (19) E -> . E OR E
+    (20) E -> . - E
+    (21) E -> . ( E )
+    (22) E -> . NUMBER
+    (23) E -> . TRUE
+    (24) E -> . FALSE
+    (25) E -> . ID
+
+    -               shift and go to state 7
+    (               shift and go to state 8
+    NUMBER          shift and go to state 9
+    TRUE            shift and go to state 10
+    FALSE           shift and go to state 11
+    ID              shift and go to state 6
+
+    E                              shift and go to state 28
+
+state 9
+
+    (22) E -> NUMBER .
+
+    ;               reduce using rule 22 (E -> NUMBER .)
+    +               reduce using rule 22 (E -> NUMBER .)
+    -               reduce using rule 22 (E -> NUMBER .)
+    *               reduce using rule 22 (E -> NUMBER .)
+    /               reduce using rule 22 (E -> NUMBER .)
+    <               reduce using rule 22 (E -> NUMBER .)
+    >               reduce using rule 22 (E -> NUMBER .)
+    LE              reduce using rule 22 (E -> NUMBER .)
+    GE              reduce using rule 22 (E -> NUMBER .)
+    EQ              reduce using rule 22 (E -> NUMBER .)
+    NEQ             reduce using rule 22 (E -> NUMBER .)
+    AND             reduce using rule 22 (E -> NUMBER .)
+    OR              reduce using rule 22 (E -> NUMBER .)
+    )               reduce using rule 22 (E -> NUMBER .)
+
+
+state 10
+
+    (23) E -> TRUE .
+
+    ;               reduce using rule 23 (E -> TRUE .)
+    +               reduce using rule 23 (E -> TRUE .)
+    -               reduce using rule 23 (E -> TRUE .)
+    *               reduce using rule 23 (E -> TRUE .)
+    /               reduce using rule 23 (E -> TRUE .)
+    <               reduce using rule 23 (E -> TRUE .)
+    >               reduce using rule 23 (E -> TRUE .)
+    LE              reduce using rule 23 (E -> TRUE .)
+    GE              reduce using rule 23 (E -> TRUE .)
+    EQ              reduce using rule 23 (E -> TRUE .)
+    NEQ             reduce using rule 23 (E -> TRUE .)
+    AND             reduce using rule 23 (E -> TRUE .)
+    OR              reduce using rule 23 (E -> TRUE .)
+    )               reduce using rule 23 (E -> TRUE .)
+
+
+state 11
+
+    (24) E -> FALSE .
+
+    ;               reduce using rule 24 (E -> FALSE .)
+    +               reduce using rule 24 (E -> FALSE .)
+    -               reduce using rule 24 (E -> FALSE .)
+    *               reduce using rule 24 (E -> FALSE .)
+    /               reduce using rule 24 (E -> FALSE .)
+    <               reduce using rule 24 (E -> FALSE .)
+    >               reduce using rule 24 (E -> FALSE .)
+    LE              reduce using rule 24 (E -> FALSE .)
+    GE              reduce using rule 24 (E -> FALSE .)
+    EQ              reduce using rule 24 (E -> FALSE .)
+    NEQ             reduce using rule 24 (E -> FALSE .)
+    AND             reduce using rule 24 (E -> FALSE .)
+    OR              reduce using rule 24 (E -> FALSE .)
+    )               reduce using rule 24 (E -> FALSE .)
+
+
+state 12
+
+    (3) StmtList -> StmtList Stmt .
+
+    LET             reduce using rule 3 (StmtList -> StmtList Stmt .)
+    -               reduce using rule 3 (StmtList -> StmtList Stmt .)
+    (               reduce using rule 3 (StmtList -> StmtList Stmt .)
+    NUMBER          reduce using rule 3 (StmtList -> StmtList Stmt .)
+    TRUE            reduce using rule 3 (StmtList -> StmtList Stmt .)
+    FALSE           reduce using rule 3 (StmtList -> StmtList Stmt .)
+    ID              reduce using rule 3 (StmtList -> StmtList Stmt .)
+    $end            reduce using rule 3 (StmtList -> StmtList Stmt .)
+
+
+state 13
+
+    (4) Stmt -> E ; .
+
+    LET             reduce using rule 4 (Stmt -> E ; .)
+    -               reduce using rule 4 (Stmt -> E ; .)
+    (               reduce using rule 4 (Stmt -> E ; .)
+    NUMBER          reduce using rule 4 (Stmt -> E ; .)
+    TRUE            reduce using rule 4 (Stmt -> E ; .)
+    FALSE           reduce using rule 4 (Stmt -> E ; .)
+    ID              reduce using rule 4 (Stmt -> E ; .)
+    $end            reduce using rule 4 (Stmt -> E ; .)
+
+
+state 14
+
+    (8) E -> E + . E
+    (8) E -> . E + E
+    (9) E -> . E - E
+    (10) E -> . E * E
+    (11) E -> . E / E
+    (12) E -> . E < E
+    (13) E -> . E > E
+    (14) E -> . E LE E
+    (15) E -> . E GE E
+    (16) E -> . E EQ E
+    (17) E -> . E NEQ E
+    (18) E -> . E AND E
+    (19) E -> . E OR E
+    (20) E -> . - E
+    (21) E -> . ( E )
+    (22) E -> . NUMBER
+    (23) E -> . TRUE
+    (24) E -> . FALSE
+    (25) E -> . ID
+
+    -               shift and go to state 7
+    (               shift and go to state 8
+    NUMBER          shift and go to state 9
+    TRUE            shift and go to state 10
+    FALSE           shift and go to state 11
+    ID              shift and go to state 6
+
+    E                              shift and go to state 29
+
+state 15
+
+    (9) E -> E - . E
+    (8) E -> . E + E
+    (9) E -> . E - E
+    (10) E -> . E * E
+    (11) E -> . E / E
+    (12) E -> . E < E
+    (13) E -> . E > E
+    (14) E -> . E LE E
+    (15) E -> . E GE E
+    (16) E -> . E EQ E
+    (17) E -> . E NEQ E
+    (18) E -> . E AND E
+    (19) E -> . E OR E
+    (20) E -> . - E
+    (21) E -> . ( E )
+    (22) E -> . NUMBER
+    (23) E -> . TRUE
+    (24) E -> . FALSE
+    (25) E -> . ID
+
+    -               shift and go to state 7
+    (               shift and go to state 8
+    NUMBER          shift and go to state 9
+    TRUE            shift and go to state 10
+    FALSE           shift and go to state 11
+    ID              shift and go to state 6
+
+    E                              shift and go to state 30
+
+state 16
+
+    (10) E -> E * . E
+    (8) E -> . E + E
+    (9) E -> . E - E
+    (10) E -> . E * E
+    (11) E -> . E / E
+    (12) E -> . E < E
+    (13) E -> . E > E
+    (14) E -> . E LE E
+    (15) E -> . E GE E
+    (16) E -> . E EQ E
+    (17) E -> . E NEQ E
+    (18) E -> . E AND E
+    (19) E -> . E OR E
+    (20) E -> . - E
+    (21) E -> . ( E )
+    (22) E -> . NUMBER
+    (23) E -> . TRUE
+    (24) E -> . FALSE
+    (25) E -> . ID
+
+    -               shift and go to state 7
+    (               shift and go to state 8
+    NUMBER          shift and go to state 9
+    TRUE            shift and go to state 10
+    FALSE           shift and go to state 11
+    ID              shift and go to state 6
+
+    E                              shift and go to state 31
+
+state 17
+
+    (11) E -> E / . E
+    (8) E -> . E + E
+    (9) E -> . E - E
+    (10) E -> . E * E
+    (11) E -> . E / E
+    (12) E -> . E < E
+    (13) E -> . E > E
+    (14) E -> . E LE E
+    (15) E -> . E GE E
+    (16) E -> . E EQ E
+    (17) E -> . E NEQ E
+    (18) E -> . E AND E
+    (19) E -> . E OR E
+    (20) E -> . - E
+    (21) E -> . ( E )
+    (22) E -> . NUMBER
+    (23) E -> . TRUE
+    (24) E -> . FALSE
+    (25) E -> . ID
+
+    -               shift and go to state 7
+    (               shift and go to state 8
+    NUMBER          shift and go to state 9
+    TRUE            shift and go to state 10
+    FALSE           shift and go to state 11
+    ID              shift and go to state 6
+
+    E                              shift and go to state 32
+
+state 18
+
+    (12) E -> E < . E
+    (8) E -> . E + E
+    (9) E -> . E - E
+    (10) E -> . E * E
+    (11) E -> . E / E
+    (12) E -> . E < E
+    (13) E -> . E > E
+    (14) E -> . E LE E
+    (15) E -> . E GE E
+    (16) E -> . E EQ E
+    (17) E -> . E NEQ E
+    (18) E -> . E AND E
+    (19) E -> . E OR E
+    (20) E -> . - E
+    (21) E -> . ( E )
+    (22) E -> . NUMBER
+    (23) E -> . TRUE
+    (24) E -> . FALSE
+    (25) E -> . ID
+
+    -               shift and go to state 7
+    (               shift and go to state 8
+    NUMBER          shift and go to state 9
+    TRUE            shift and go to state 10
+    FALSE           shift and go to state 11
+    ID              shift and go to state 6
+
+    E                              shift and go to state 33
+
+state 19
+
+    (13) E -> E > . E
+    (8) E -> . E + E
+    (9) E -> . E - E
+    (10) E -> . E * E
+    (11) E -> . E / E
+    (12) E -> . E < E
+    (13) E -> . E > E
+    (14) E -> . E LE E
+    (15) E -> . E GE E
+    (16) E -> . E EQ E
+    (17) E -> . E NEQ E
+    (18) E -> . E AND E
+    (19) E -> . E OR E
+    (20) E -> . - E
+    (21) E -> . ( E )
+    (22) E -> . NUMBER
+    (23) E -> . TRUE
+    (24) E -> . FALSE
+    (25) E -> . ID
+
+    -               shift and go to state 7
+    (               shift and go to state 8
+    NUMBER          shift and go to state 9
+    TRUE            shift and go to state 10
+    FALSE           shift and go to state 11
+    ID              shift and go to state 6
+
+    E                              shift and go to state 34
+
+state 20
+
+    (14) E -> E LE . E
+    (8) E -> . E + E
+    (9) E -> . E - E
+    (10) E -> . E * E
+    (11) E -> . E / E
+    (12) E -> . E < E
+    (13) E -> . E > E
+    (14) E -> . E LE E
+    (15) E -> . E GE E
+    (16) E -> . E EQ E
+    (17) E -> . E NEQ E
+    (18) E -> . E AND E
+    (19) E -> . E OR E
+    (20) E -> . - E
+    (21) E -> . ( E )
+    (22) E -> . NUMBER
+    (23) E -> . TRUE
+    (24) E -> . FALSE
+    (25) E -> . ID
+
+    -               shift and go to state 7
+    (               shift and go to state 8
+    NUMBER          shift and go to state 9
+    TRUE            shift and go to state 10
+    FALSE           shift and go to state 11
+    ID              shift and go to state 6
+
+    E                              shift and go to state 35
+
+state 21
+
+    (15) E -> E GE . E
+    (8) E -> . E + E
+    (9) E -> . E - E
+    (10) E -> . E * E
+    (11) E -> . E / E
+    (12) E -> . E < E
+    (13) E -> . E > E
+    (14) E -> . E LE E
+    (15) E -> . E GE E
+    (16) E -> . E EQ E
+    (17) E -> . E NEQ E
+    (18) E -> . E AND E
+    (19) E -> . E OR E
+    (20) E -> . - E
+    (21) E -> . ( E )
+    (22) E -> . NUMBER
+    (23) E -> . TRUE
+    (24) E -> . FALSE
+    (25) E -> . ID
+
+    -               shift and go to state 7
+    (               shift and go to state 8
+    NUMBER          shift and go to state 9
+    TRUE            shift and go to state 10
+    FALSE           shift and go to state 11
+    ID              shift and go to state 6
+
+    E                              shift and go to state 36
+
+state 22
+
+    (16) E -> E EQ . E
+    (8) E -> . E + E
+    (9) E -> . E - E
+    (10) E -> . E * E
+    (11) E -> . E / E
+    (12) E -> . E < E
+    (13) E -> . E > E
+    (14) E -> . E LE E
+    (15) E -> . E GE E
+    (16) E -> . E EQ E
+    (17) E -> . E NEQ E
+    (18) E -> . E AND E
+    (19) E -> . E OR E
+    (20) E -> . - E
+    (21) E -> . ( E )
+    (22) E -> . NUMBER
+    (23) E -> . TRUE
+    (24) E -> . FALSE
+    (25) E -> . ID
+
+    -               shift and go to state 7
+    (               shift and go to state 8
+    NUMBER          shift and go to state 9
+    TRUE            shift and go to state 10
+    FALSE           shift and go to state 11
+    ID              shift and go to state 6
+
+    E                              shift and go to state 37
+
+state 23
+
+    (17) E -> E NEQ . E
+    (8) E -> . E + E
+    (9) E -> . E - E
+    (10) E -> . E * E
+    (11) E -> . E / E
+    (12) E -> . E < E
+    (13) E -> . E > E
+    (14) E -> . E LE E
+    (15) E -> . E GE E
+    (16) E -> . E EQ E
+    (17) E -> . E NEQ E
+    (18) E -> . E AND E
+    (19) E -> . E OR E
+    (20) E -> . - E
+    (21) E -> . ( E )
+    (22) E -> . NUMBER
+    (23) E -> . TRUE
+    (24) E -> . FALSE
+    (25) E -> . ID
+
+    -               shift and go to state 7
+    (               shift and go to state 8
+    NUMBER          shift and go to state 9
+    TRUE            shift and go to state 10
+    FALSE           shift and go to state 11
+    ID              shift and go to state 6
+
+    E                              shift and go to state 38
+
+state 24
+
+    (18) E -> E AND . E
+    (8) E -> . E + E
+    (9) E -> . E - E
+    (10) E -> . E * E
+    (11) E -> . E / E
+    (12) E -> . E < E
+    (13) E -> . E > E
+    (14) E -> . E LE E
+    (15) E -> . E GE E
+    (16) E -> . E EQ E
+    (17) E -> . E NEQ E
+    (18) E -> . E AND E
+    (19) E -> . E OR E
+    (20) E -> . - E
+    (21) E -> . ( E )
+    (22) E -> . NUMBER
+    (23) E -> . TRUE
+    (24) E -> . FALSE
+    (25) E -> . ID
+
+    -               shift and go to state 7
+    (               shift and go to state 8
+    NUMBER          shift and go to state 9
+    TRUE            shift and go to state 10
+    FALSE           shift and go to state 11
+    ID              shift and go to state 6
+
+    E                              shift and go to state 39
+
+state 25
+
+    (19) E -> E OR . E
+    (8) E -> . E + E
+    (9) E -> . E - E
+    (10) E -> . E * E
+    (11) E -> . E / E
+    (12) E -> . E < E
+    (13) E -> . E > E
+    (14) E -> . E LE E
+    (15) E -> . E GE E
+    (16) E -> . E EQ E
+    (17) E -> . E NEQ E
+    (18) E -> . E AND E
+    (19) E -> . E OR E
+    (20) E -> . - E
+    (21) E -> . ( E )
+    (22) E -> . NUMBER
+    (23) E -> . TRUE
+    (24) E -> . FALSE
+    (25) E -> . ID
+
+    -               shift and go to state 7
+    (               shift and go to state 8
+    NUMBER          shift and go to state 9
+    TRUE            shift and go to state 10
+    FALSE           shift and go to state 11
+    ID              shift and go to state 6
+
+    E                              shift and go to state 40
+
+state 26
+
+    (5) Stmt -> LET ID . : Type = E ;
+
+    :               shift and go to state 41
+
+
+state 27
+
+    (20) E -> - E .
+    (8) E -> E . + E
+    (9) E -> E . - E
+    (10) E -> E . * E
+    (11) E -> E . / E
+    (12) E -> E . < E
+    (13) E -> E . > E
+    (14) E -> E . LE E
+    (15) E -> E . GE E
+    (16) E -> E . EQ E
+    (17) E -> E . NEQ E
+    (18) E -> E . AND E
+    (19) E -> E . OR E
+
+    ;               reduce using rule 20 (E -> - E .)
+    +               reduce using rule 20 (E -> - E .)
+    -               reduce using rule 20 (E -> - E .)
+    *               reduce using rule 20 (E -> - E .)
+    /               reduce using rule 20 (E -> - E .)
+    <               reduce using rule 20 (E -> - E .)
+    >               reduce using rule 20 (E -> - E .)
+    LE              reduce using rule 20 (E -> - E .)
+    GE              reduce using rule 20 (E -> - E .)
+    EQ              reduce using rule 20 (E -> - E .)
+    NEQ             reduce using rule 20 (E -> - E .)
+    AND             reduce using rule 20 (E -> - E .)
+    OR              reduce using rule 20 (E -> - E .)
+    )               reduce using rule 20 (E -> - E .)
+
+  ! +               [ shift and go to state 14 ]
+  ! -               [ shift and go to state 15 ]
+  ! *               [ shift and go to state 16 ]
+  ! /               [ shift and go to state 17 ]
+  ! <               [ shift and go to state 18 ]
+  ! >               [ shift and go to state 19 ]
+  ! LE              [ shift and go to state 20 ]
+  ! GE              [ shift and go to state 21 ]
+  ! EQ              [ shift and go to state 22 ]
+  ! NEQ             [ shift and go to state 23 ]
+  ! AND             [ shift and go to state 24 ]
+  ! OR              [ shift and go to state 25 ]
+
+
+state 28
+
+    (21) E -> ( E . )
+    (8) E -> E . + E
+    (9) E -> E . - E
+    (10) E -> E . * E
+    (11) E -> E . / E
+    (12) E -> E . < E
+    (13) E -> E . > E
+    (14) E -> E . LE E
+    (15) E -> E . GE E
+    (16) E -> E . EQ E
+    (17) E -> E . NEQ E
+    (18) E -> E . AND E
+    (19) E -> E . OR E
+
+    )               shift and go to state 42
+    +               shift and go to state 14
+    -               shift and go to state 15
+    *               shift and go to state 16
+    /               shift and go to state 17
+    <               shift and go to state 18
+    >               shift and go to state 19
+    LE              shift and go to state 20
+    GE              shift and go to state 21
+    EQ              shift and go to state 22
+    NEQ             shift and go to state 23
+    AND             shift and go to state 24
+    OR              shift and go to state 25
+
+
+state 29
+
+    (8) E -> E + E .
+    (8) E -> E . + E
+    (9) E -> E . - E
+    (10) E -> E . * E
+    (11) E -> E . / E
+    (12) E -> E . < E
+    (13) E -> E . > E
+    (14) E -> E . LE E
+    (15) E -> E . GE E
+    (16) E -> E . EQ E
+    (17) E -> E . NEQ E
+    (18) E -> E . AND E
+    (19) E -> E . OR E
+
+    ;               reduce using rule 8 (E -> E + E .)
+    +               reduce using rule 8 (E -> E + E .)
+    -               reduce using rule 8 (E -> E + E .)
+    <               reduce using rule 8 (E -> E + E .)
+    >               reduce using rule 8 (E -> E + E .)
+    LE              reduce using rule 8 (E -> E + E .)
+    GE              reduce using rule 8 (E -> E + E .)
+    EQ              reduce using rule 8 (E -> E + E .)
+    NEQ             reduce using rule 8 (E -> E + E .)
+    AND             reduce using rule 8 (E -> E + E .)
+    OR              reduce using rule 8 (E -> E + E .)
+    )               reduce using rule 8 (E -> E + E .)
+    *               shift and go to state 16
+    /               shift and go to state 17
+
+  ! *               [ reduce using rule 8 (E -> E + E .) ]
+  ! /               [ reduce using rule 8 (E -> E + E .) ]
+  ! +               [ shift and go to state 14 ]
+  ! -               [ shift and go to state 15 ]
+  ! <               [ shift and go to state 18 ]
+  ! >               [ shift and go to state 19 ]
+  ! LE              [ shift and go to state 20 ]
+  ! GE              [ shift and go to state 21 ]
+  ! EQ              [ shift and go to state 22 ]
+  ! NEQ             [ shift and go to state 23 ]
+  ! AND             [ shift and go to state 24 ]
+  ! OR              [ shift and go to state 25 ]
+
+
+state 30
+
+    (9) E -> E - E .
+    (8) E -> E . + E
+    (9) E -> E . - E
+    (10) E -> E . * E
+    (11) E -> E . / E
+    (12) E -> E . < E
+    (13) E -> E . > E
+    (14) E -> E . LE E
+    (15) E -> E . GE E
+    (16) E -> E . EQ E
+    (17) E -> E . NEQ E
+    (18) E -> E . AND E
+    (19) E -> E . OR E
+
+    ;               reduce using rule 9 (E -> E - E .)
+    +               reduce using rule 9 (E -> E - E .)
+    -               reduce using rule 9 (E -> E - E .)
+    <               reduce using rule 9 (E -> E - E .)
+    >               reduce using rule 9 (E -> E - E .)
+    LE              reduce using rule 9 (E -> E - E .)
+    GE              reduce using rule 9 (E -> E - E .)
+    EQ              reduce using rule 9 (E -> E - E .)
+    NEQ             reduce using rule 9 (E -> E - E .)
+    AND             reduce using rule 9 (E -> E - E .)
+    OR              reduce using rule 9 (E -> E - E .)
+    )               reduce using rule 9 (E -> E - E .)
+    *               shift and go to state 16
+    /               shift and go to state 17
+
+  ! *               [ reduce using rule 9 (E -> E - E .) ]
+  ! /               [ reduce using rule 9 (E -> E - E .) ]
+  ! +               [ shift and go to state 14 ]
+  ! -               [ shift and go to state 15 ]
+  ! <               [ shift and go to state 18 ]
+  ! >               [ shift and go to state 19 ]
+  ! LE              [ shift and go to state 20 ]
+  ! GE              [ shift and go to state 21 ]
+  ! EQ              [ shift and go to state 22 ]
+  ! NEQ             [ shift and go to state 23 ]
+  ! AND             [ shift and go to state 24 ]
+  ! OR              [ shift and go to state 25 ]
+
+
+state 31
+
+    (10) E -> E * E .
+    (8) E -> E . + E
+    (9) E -> E . - E
+    (10) E -> E . * E
+    (11) E -> E . / E
+    (12) E -> E . < E
+    (13) E -> E . > E
+    (14) E -> E . LE E
+    (15) E -> E . GE E
+    (16) E -> E . EQ E
+    (17) E -> E . NEQ E
+    (18) E -> E . AND E
+    (19) E -> E . OR E
+
+    ;               reduce using rule 10 (E -> E * E .)
+    +               reduce using rule 10 (E -> E * E .)
+    -               reduce using rule 10 (E -> E * E .)
+    *               reduce using rule 10 (E -> E * E .)
+    /               reduce using rule 10 (E -> E * E .)
+    <               reduce using rule 10 (E -> E * E .)
+    >               reduce using rule 10 (E -> E * E .)
+    LE              reduce using rule 10 (E -> E * E .)
+    GE              reduce using rule 10 (E -> E * E .)
+    EQ              reduce using rule 10 (E -> E * E .)
+    NEQ             reduce using rule 10 (E -> E * E .)
+    AND             reduce using rule 10 (E -> E * E .)
+    OR              reduce using rule 10 (E -> E * E .)
+    )               reduce using rule 10 (E -> E * E .)
+
+  ! +               [ shift and go to state 14 ]
+  ! -               [ shift and go to state 15 ]
+  ! *               [ shift and go to state 16 ]
+  ! /               [ shift and go to state 17 ]
+  ! <               [ shift and go to state 18 ]
+  ! >               [ shift and go to state 19 ]
+  ! LE              [ shift and go to state 20 ]
+  ! GE              [ shift and go to state 21 ]
+  ! EQ              [ shift and go to state 22 ]
+  ! NEQ             [ shift and go to state 23 ]
+  ! AND             [ shift and go to state 24 ]
+  ! OR              [ shift and go to state 25 ]
+
+
+state 32
+
+    (11) E -> E / E .
+    (8) E -> E . + E
+    (9) E -> E . - E
+    (10) E -> E . * E
+    (11) E -> E . / E
+    (12) E -> E . < E
+    (13) E -> E . > E
+    (14) E -> E . LE E
+    (15) E -> E . GE E
+    (16) E -> E . EQ E
+    (17) E -> E . NEQ E
+    (18) E -> E . AND E
+    (19) E -> E . OR E
+
+    ;               reduce using rule 11 (E -> E / E .)
+    +               reduce using rule 11 (E -> E / E .)
+    -               reduce using rule 11 (E -> E / E .)
+    *               reduce using rule 11 (E -> E / E .)
+    /               reduce using rule 11 (E -> E / E .)
+    <               reduce using rule 11 (E -> E / E .)
+    >               reduce using rule 11 (E -> E / E .)
+    LE              reduce using rule 11 (E -> E / E .)
+    GE              reduce using rule 11 (E -> E / E .)
+    EQ              reduce using rule 11 (E -> E / E .)
+    NEQ             reduce using rule 11 (E -> E / E .)
+    AND             reduce using rule 11 (E -> E / E .)
+    OR              reduce using rule 11 (E -> E / E .)
+    )               reduce using rule 11 (E -> E / E .)
+
+  ! +               [ shift and go to state 14 ]
+  ! -               [ shift and go to state 15 ]
+  ! *               [ shift and go to state 16 ]
+  ! /               [ shift and go to state 17 ]
+  ! <               [ shift and go to state 18 ]
+  ! >               [ shift and go to state 19 ]
+  ! LE              [ shift and go to state 20 ]
+  ! GE              [ shift and go to state 21 ]
+  ! EQ              [ shift and go to state 22 ]
+  ! NEQ             [ shift and go to state 23 ]
+  ! AND             [ shift and go to state 24 ]
+  ! OR              [ shift and go to state 25 ]
+
+
+state 33
+
+    (12) E -> E < E .
+    (8) E -> E . + E
+    (9) E -> E . - E
+    (10) E -> E . * E
+    (11) E -> E . / E
+    (12) E -> E . < E
+    (13) E -> E . > E
+    (14) E -> E . LE E
+    (15) E -> E . GE E
+    (16) E -> E . EQ E
+    (17) E -> E . NEQ E
+    (18) E -> E . AND E
+    (19) E -> E . OR E
+
+    ;               reduce using rule 12 (E -> E < E .)
+    <               reduce using rule 12 (E -> E < E .)
+    >               reduce using rule 12 (E -> E < E .)
+    LE              reduce using rule 12 (E -> E < E .)
+    GE              reduce using rule 12 (E -> E < E .)
+    EQ              reduce using rule 12 (E -> E < E .)
+    NEQ             reduce using rule 12 (E -> E < E .)
+    AND             reduce using rule 12 (E -> E < E .)
+    OR              reduce using rule 12 (E -> E < E .)
+    )               reduce using rule 12 (E -> E < E .)
+    +               shift and go to state 14
+    -               shift and go to state 15
+    *               shift and go to state 16
+    /               shift and go to state 17
+
+  ! +               [ reduce using rule 12 (E -> E < E .) ]
+  ! -               [ reduce using rule 12 (E -> E < E .) ]
+  ! *               [ reduce using rule 12 (E -> E < E .) ]
+  ! /               [ reduce using rule 12 (E -> E < E .) ]
+  ! <               [ shift and go to state 18 ]
+  ! >               [ shift and go to state 19 ]
+  ! LE              [ shift and go to state 20 ]
+  ! GE              [ shift and go to state 21 ]
+  ! EQ              [ shift and go to state 22 ]
+  ! NEQ             [ shift and go to state 23 ]
+  ! AND             [ shift and go to state 24 ]
+  ! OR              [ shift and go to state 25 ]
+
+
+state 34
+
+    (13) E -> E > E .
+    (8) E -> E . + E
+    (9) E -> E . - E
+    (10) E -> E . * E
+    (11) E -> E . / E
+    (12) E -> E . < E
+    (13) E -> E . > E
+    (14) E -> E . LE E
+    (15) E -> E . GE E
+    (16) E -> E . EQ E
+    (17) E -> E . NEQ E
+    (18) E -> E . AND E
+    (19) E -> E . OR E
+
+    ;               reduce using rule 13 (E -> E > E .)
+    <               reduce using rule 13 (E -> E > E .)
+    >               reduce using rule 13 (E -> E > E .)
+    LE              reduce using rule 13 (E -> E > E .)
+    GE              reduce using rule 13 (E -> E > E .)
+    EQ              reduce using rule 13 (E -> E > E .)
+    NEQ             reduce using rule 13 (E -> E > E .)
+    AND             reduce using rule 13 (E -> E > E .)
+    OR              reduce using rule 13 (E -> E > E .)
+    )               reduce using rule 13 (E -> E > E .)
+    +               shift and go to state 14
+    -               shift and go to state 15
+    *               shift and go to state 16
+    /               shift and go to state 17
+
+  ! +               [ reduce using rule 13 (E -> E > E .) ]
+  ! -               [ reduce using rule 13 (E -> E > E .) ]
+  ! *               [ reduce using rule 13 (E -> E > E .) ]
+  ! /               [ reduce using rule 13 (E -> E > E .) ]
+  ! <               [ shift and go to state 18 ]
+  ! >               [ shift and go to state 19 ]
+  ! LE              [ shift and go to state 20 ]
+  ! GE              [ shift and go to state 21 ]
+  ! EQ              [ shift and go to state 22 ]
+  ! NEQ             [ shift and go to state 23 ]
+  ! AND             [ shift and go to state 24 ]
+  ! OR              [ shift and go to state 25 ]
+
+
+state 35
+
+    (14) E -> E LE E .
+    (8) E -> E . + E
+    (9) E -> E . - E
+    (10) E -> E . * E
+    (11) E -> E . / E
+    (12) E -> E . < E
+    (13) E -> E . > E
+    (14) E -> E . LE E
+    (15) E -> E . GE E
+    (16) E -> E . EQ E
+    (17) E -> E . NEQ E
+    (18) E -> E . AND E
+    (19) E -> E . OR E
+
+    ;               reduce using rule 14 (E -> E LE E .)
+    <               reduce using rule 14 (E -> E LE E .)
+    >               reduce using rule 14 (E -> E LE E .)
+    LE              reduce using rule 14 (E -> E LE E .)
+    GE              reduce using rule 14 (E -> E LE E .)
+    EQ              reduce using rule 14 (E -> E LE E .)
+    NEQ             reduce using rule 14 (E -> E LE E .)
+    AND             reduce using rule 14 (E -> E LE E .)
+    OR              reduce using rule 14 (E -> E LE E .)
+    )               reduce using rule 14 (E -> E LE E .)
+    +               shift and go to state 14
+    -               shift and go to state 15
+    *               shift and go to state 16
+    /               shift and go to state 17
+
+  ! +               [ reduce using rule 14 (E -> E LE E .) ]
+  ! -               [ reduce using rule 14 (E -> E LE E .) ]
+  ! *               [ reduce using rule 14 (E -> E LE E .) ]
+  ! /               [ reduce using rule 14 (E -> E LE E .) ]
+  ! <               [ shift and go to state 18 ]
+  ! >               [ shift and go to state 19 ]
+  ! LE              [ shift and go to state 20 ]
+  ! GE              [ shift and go to state 21 ]
+  ! EQ              [ shift and go to state 22 ]
+  ! NEQ             [ shift and go to state 23 ]
+  ! AND             [ shift and go to state 24 ]
+  ! OR              [ shift and go to state 25 ]
+
+
+state 36
+
+    (15) E -> E GE E .
+    (8) E -> E . + E
+    (9) E -> E . - E
+    (10) E -> E . * E
+    (11) E -> E . / E
+    (12) E -> E . < E
+    (13) E -> E . > E
+    (14) E -> E . LE E
+    (15) E -> E . GE E
+    (16) E -> E . EQ E
+    (17) E -> E . NEQ E
+    (18) E -> E . AND E
+    (19) E -> E . OR E
+
+    ;               reduce using rule 15 (E -> E GE E .)
+    <               reduce using rule 15 (E -> E GE E .)
+    >               reduce using rule 15 (E -> E GE E .)
+    LE              reduce using rule 15 (E -> E GE E .)
+    GE              reduce using rule 15 (E -> E GE E .)
+    EQ              reduce using rule 15 (E -> E GE E .)
+    NEQ             reduce using rule 15 (E -> E GE E .)
+    AND             reduce using rule 15 (E -> E GE E .)
+    OR              reduce using rule 15 (E -> E GE E .)
+    )               reduce using rule 15 (E -> E GE E .)
+    +               shift and go to state 14
+    -               shift and go to state 15
+    *               shift and go to state 16
+    /               shift and go to state 17
+
+  ! +               [ reduce using rule 15 (E -> E GE E .) ]
+  ! -               [ reduce using rule 15 (E -> E GE E .) ]
+  ! *               [ reduce using rule 15 (E -> E GE E .) ]
+  ! /               [ reduce using rule 15 (E -> E GE E .) ]
+  ! <               [ shift and go to state 18 ]
+  ! >               [ shift and go to state 19 ]
+  ! LE              [ shift and go to state 20 ]
+  ! GE              [ shift and go to state 21 ]
+  ! EQ              [ shift and go to state 22 ]
+  ! NEQ             [ shift and go to state 23 ]
+  ! AND             [ shift and go to state 24 ]
+  ! OR              [ shift and go to state 25 ]
+
+
+state 37
+
+    (16) E -> E EQ E .
+    (8) E -> E . + E
+    (9) E -> E . - E
+    (10) E -> E . * E
+    (11) E -> E . / E
+    (12) E -> E . < E
+    (13) E -> E . > E
+    (14) E -> E . LE E
+    (15) E -> E . GE E
+    (16) E -> E . EQ E
+    (17) E -> E . NEQ E
+    (18) E -> E . AND E
+    (19) E -> E . OR E
+
+    ;               reduce using rule 16 (E -> E EQ E .)
+    EQ              reduce using rule 16 (E -> E EQ E .)
+    NEQ             reduce using rule 16 (E -> E EQ E .)
+    AND             reduce using rule 16 (E -> E EQ E .)
+    OR              reduce using rule 16 (E -> E EQ E .)
+    )               reduce using rule 16 (E -> E EQ E .)
+    +               shift and go to state 14
+    -               shift and go to state 15
+    *               shift and go to state 16
+    /               shift and go to state 17
+    <               shift and go to state 18
+    >               shift and go to state 19
+    LE              shift and go to state 20
+    GE              shift and go to state 21
+
+  ! +               [ reduce using rule 16 (E -> E EQ E .) ]
+  ! -               [ reduce using rule 16 (E -> E EQ E .) ]
+  ! *               [ reduce using rule 16 (E -> E EQ E .) ]
+  ! /               [ reduce using rule 16 (E -> E EQ E .) ]
+  ! <               [ reduce using rule 16 (E -> E EQ E .) ]
+  ! >               [ reduce using rule 16 (E -> E EQ E .) ]
+  ! LE              [ reduce using rule 16 (E -> E EQ E .) ]
+  ! GE              [ reduce using rule 16 (E -> E EQ E .) ]
+  ! EQ              [ shift and go to state 22 ]
+  ! NEQ             [ shift and go to state 23 ]
+  ! AND             [ shift and go to state 24 ]
+  ! OR              [ shift and go to state 25 ]
+
+
+state 38
+
+    (17) E -> E NEQ E .
+    (8) E -> E . + E
+    (9) E -> E . - E
+    (10) E -> E . * E
+    (11) E -> E . / E
+    (12) E -> E . < E
+    (13) E -> E . > E
+    (14) E -> E . LE E
+    (15) E -> E . GE E
+    (16) E -> E . EQ E
+    (17) E -> E . NEQ E
+    (18) E -> E . AND E
+    (19) E -> E . OR E
+
+    ;               reduce using rule 17 (E -> E NEQ E .)
+    EQ              reduce using rule 17 (E -> E NEQ E .)
+    NEQ             reduce using rule 17 (E -> E NEQ E .)
+    AND             reduce using rule 17 (E -> E NEQ E .)
+    OR              reduce using rule 17 (E -> E NEQ E .)
+    )               reduce using rule 17 (E -> E NEQ E .)
+    +               shift and go to state 14
+    -               shift and go to state 15
+    *               shift and go to state 16
+    /               shift and go to state 17
+    <               shift and go to state 18
+    >               shift and go to state 19
+    LE              shift and go to state 20
+    GE              shift and go to state 21
+
+  ! +               [ reduce using rule 17 (E -> E NEQ E .) ]
+  ! -               [ reduce using rule 17 (E -> E NEQ E .) ]
+  ! *               [ reduce using rule 17 (E -> E NEQ E .) ]
+  ! /               [ reduce using rule 17 (E -> E NEQ E .) ]
+  ! <               [ reduce using rule 17 (E -> E NEQ E .) ]
+  ! >               [ reduce using rule 17 (E -> E NEQ E .) ]
+  ! LE              [ reduce using rule 17 (E -> E NEQ E .) ]
+  ! GE              [ reduce using rule 17 (E -> E NEQ E .) ]
+  ! EQ              [ shift and go to state 22 ]
+  ! NEQ             [ shift and go to state 23 ]
+  ! AND             [ shift and go to state 24 ]
+  ! OR              [ shift and go to state 25 ]
+
+
+state 39
+
+    (18) E -> E AND E .
+    (8) E -> E . + E
+    (9) E -> E . - E
+    (10) E -> E . * E
+    (11) E -> E . / E
+    (12) E -> E . < E
+    (13) E -> E . > E
+    (14) E -> E . LE E
+    (15) E -> E . GE E
+    (16) E -> E . EQ E
+    (17) E -> E . NEQ E
+    (18) E -> E . AND E
+    (19) E -> E . OR E
+
+    ;               reduce using rule 18 (E -> E AND E .)
+    AND             reduce using rule 18 (E -> E AND E .)
+    OR              reduce using rule 18 (E -> E AND E .)
+    )               reduce using rule 18 (E -> E AND E .)
+    +               shift and go to state 14
+    -               shift and go to state 15
+    *               shift and go to state 16
+    /               shift and go to state 17
+    <               shift and go to state 18
+    >               shift and go to state 19
+    LE              shift and go to state 20
+    GE              shift and go to state 21
+    EQ              shift and go to state 22
+    NEQ             shift and go to state 23
+
+  ! +               [ reduce using rule 18 (E -> E AND E .) ]
+  ! -               [ reduce using rule 18 (E -> E AND E .) ]
+  ! *               [ reduce using rule 18 (E -> E AND E .) ]
+  ! /               [ reduce using rule 18 (E -> E AND E .) ]
+  ! <               [ reduce using rule 18 (E -> E AND E .) ]
+  ! >               [ reduce using rule 18 (E -> E AND E .) ]
+  ! LE              [ reduce using rule 18 (E -> E AND E .) ]
+  ! GE              [ reduce using rule 18 (E -> E AND E .) ]
+  ! EQ              [ reduce using rule 18 (E -> E AND E .) ]
+  ! NEQ             [ reduce using rule 18 (E -> E AND E .) ]
+  ! AND             [ shift and go to state 24 ]
+  ! OR              [ shift and go to state 25 ]
+
+
+state 40
+
+    (19) E -> E OR E .
+    (8) E -> E . + E
+    (9) E -> E . - E
+    (10) E -> E . * E
+    (11) E -> E . / E
+    (12) E -> E . < E
+    (13) E -> E . > E
+    (14) E -> E . LE E
+    (15) E -> E . GE E
+    (16) E -> E . EQ E
+    (17) E -> E . NEQ E
+    (18) E -> E . AND E
+    (19) E -> E . OR E
+
+    ;               reduce using rule 19 (E -> E OR E .)
+    OR              reduce using rule 19 (E -> E OR E .)
+    )               reduce using rule 19 (E -> E OR E .)
+    +               shift and go to state 14
+    -               shift and go to state 15
+    *               shift and go to state 16
+    /               shift and go to state 17
+    <               shift and go to state 18
+    >               shift and go to state 19
+    LE              shift and go to state 20
+    GE              shift and go to state 21
+    EQ              shift and go to state 22
+    NEQ             shift and go to state 23
+    AND             shift and go to state 24
+
+  ! +               [ reduce using rule 19 (E -> E OR E .) ]
+  ! -               [ reduce using rule 19 (E -> E OR E .) ]
+  ! *               [ reduce using rule 19 (E -> E OR E .) ]
+  ! /               [ reduce using rule 19 (E -> E OR E .) ]
+  ! <               [ reduce using rule 19 (E -> E OR E .) ]
+  ! >               [ reduce using rule 19 (E -> E OR E .) ]
+  ! LE              [ reduce using rule 19 (E -> E OR E .) ]
+  ! GE              [ reduce using rule 19 (E -> E OR E .) ]
+  ! EQ              [ reduce using rule 19 (E -> E OR E .) ]
+  ! NEQ             [ reduce using rule 19 (E -> E OR E .) ]
+  ! AND             [ reduce using rule 19 (E -> E OR E .) ]
+  ! OR              [ shift and go to state 25 ]
+
+
+state 41
+
+    (5) Stmt -> LET ID : . Type = E ;
+    (6) Type -> . TINT
+    (7) Type -> . TBOOL
+
+    TINT            shift and go to state 44
+    TBOOL           shift and go to state 45
+
+    Type                           shift and go to state 43
+
+state 42
+
+    (21) E -> ( E ) .
+
+    ;               reduce using rule 21 (E -> ( E ) .)
+    +               reduce using rule 21 (E -> ( E ) .)
+    -               reduce using rule 21 (E -> ( E ) .)
+    *               reduce using rule 21 (E -> ( E ) .)
+    /               reduce using rule 21 (E -> ( E ) .)
+    <               reduce using rule 21 (E -> ( E ) .)
+    >               reduce using rule 21 (E -> ( E ) .)
+    LE              reduce using rule 21 (E -> ( E ) .)
+    GE              reduce using rule 21 (E -> ( E ) .)
+    EQ              reduce using rule 21 (E -> ( E ) .)
+    NEQ             reduce using rule 21 (E -> ( E ) .)
+    AND             reduce using rule 21 (E -> ( E ) .)
+    OR              reduce using rule 21 (E -> ( E ) .)
+    )               reduce using rule 21 (E -> ( E ) .)
+
+
+state 43
+
+    (5) Stmt -> LET ID : Type . = E ;
+
+    =               shift and go to state 46
+
+
+state 44
+
+    (6) Type -> TINT .
+
+    =               reduce using rule 6 (Type -> TINT .)
+
+
+state 45
+
+    (7) Type -> TBOOL .
+
+    =               reduce using rule 7 (Type -> TBOOL .)
+
+
+state 46
+
+    (5) Stmt -> LET ID : Type = . E ;
+    (8) E -> . E + E
+    (9) E -> . E - E
+    (10) E -> . E * E
+    (11) E -> . E / E
+    (12) E -> . E < E
+    (13) E -> . E > E
+    (14) E -> . E LE E
+    (15) E -> . E GE E
+    (16) E -> . E EQ E
+    (17) E -> . E NEQ E
+    (18) E -> . E AND E
+    (19) E -> . E OR E
+    (20) E -> . - E
+    (21) E -> . ( E )
+    (22) E -> . NUMBER
+    (23) E -> . TRUE
+    (24) E -> . FALSE
+    (25) E -> . ID
+
+    -               shift and go to state 7
+    (               shift and go to state 8
+    NUMBER          shift and go to state 9
+    TRUE            shift and go to state 10
+    FALSE           shift and go to state 11
+    ID              shift and go to state 6
+
+    E                              shift and go to state 47
+
+state 47
+
+    (5) Stmt -> LET ID : Type = E . ;
+    (8) E -> E . + E
+    (9) E -> E . - E
+    (10) E -> E . * E
+    (11) E -> E . / E
+    (12) E -> E . < E
+    (13) E -> E . > E
+    (14) E -> E . LE E
+    (15) E -> E . GE E
+    (16) E -> E . EQ E
+    (17) E -> E . NEQ E
+    (18) E -> E . AND E
+    (19) E -> E . OR E
+
+    ;               shift and go to state 48
+    +               shift and go to state 14
+    -               shift and go to state 15
+    *               shift and go to state 16
+    /               shift and go to state 17
+    <               shift and go to state 18
+    >               shift and go to state 19
+    LE              shift and go to state 20
+    GE              shift and go to state 21
+    EQ              shift and go to state 22
+    NEQ             shift and go to state 23
+    AND             shift and go to state 24
+    OR              shift and go to state 25
+
+
+state 48
+
+    (5) Stmt -> LET ID : Type = E ; .
+
+    LET             reduce using rule 5 (Stmt -> LET ID : Type = E ; .)
+    -               reduce using rule 5 (Stmt -> LET ID : Type = E ; .)
+    (               reduce using rule 5 (Stmt -> LET ID : Type = E ; .)
+    NUMBER          reduce using rule 5 (Stmt -> LET ID : Type = E ; .)
+    TRUE            reduce using rule 5 (Stmt -> LET ID : Type = E ; .)
+    FALSE           reduce using rule 5 (Stmt -> LET ID : Type = E ; .)
+    ID              reduce using rule 5 (Stmt -> LET ID : Type = E ; .)
+    $end            reduce using rule 5 (Stmt -> LET ID : Type = E ; .)
+

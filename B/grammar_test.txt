@@ -1,0 +1,75 @@
+WARNING: Token 'ARROW' defined, but not used
+WARNING: Token 'ELSE' defined, but not used
+WARNING: Token 'END' defined, but not used
+WARNING: Token 'FUN' defined, but not used
+WARNING: Token 'IF' defined, but not used
+WARNING: Token 'IS' defined, but not used
+WARNING: Token 'THEN' defined, but not used
+WARNING: Token 'WHEN' defined, but not used
+WARNING: There are 8 unused tokens
+Generating LALR tables
+
+==================================================
+Código: 3 + 4;
+==================================================
+{'op': 'program',
+ 'stmts': [{'op': 'expr', 'expr': {'op': '+', 'args': [3, 4]}}]}
+
+==================================================
+Código: 10 - 2 * 3;
+==================================================
+{'op': 'program',
+ 'stmts': [{'op': 'expr',
+            'expr': {'op': '-', 'args': [10, {'op': '*', 'args': [2, 3]}]}}]}
+
+==================================================
+Código: (8 + 2) * 5;
+==================================================
+{'op': 'program',
+ 'stmts': [{'op': 'expr',
+            'expr': {'op': '*', 'args': [{'op': '+', 'args': [8, 2]}, 5]}}]}
+
+==================================================
+Código: 3 < 5;
+==================================================
+{'op': 'program',
+ 'stmts': [{'op': 'expr', 'expr': {'op': '<', 'args': [3, 5]}}]}
+
+==================================================
+Código: 10 == 7;
+==================================================
+{'op': 'program',
+ 'stmts': [{'op': 'expr', 'expr': {'op': '==', 'args': [10, 7]}}]}
+
+==================================================
+Código: let base : Int = 10;
+==================================================
+{'op': 'program',
+ 'stmts': [{'op': 'let', 'name': 'base', 'type': 'Int', 'expr': 10}]}
+
+==================================================
+Código: let ativo : Bool = true;
+==================================================
+{'op': 'program',
+ 'stmts': [{'op': 'let', 'name': 'ativo', 'type': 'Bool', 'expr': True}]}
+
+==================================================
+Código: let area : Int = 4 * 5;
+==================================================
+{'op': 'program',
+ 'stmts': [{'op': 'let',
+            'name': 'area',
+            'type': 'Int',
+            'expr': {'op': '*', 'args': [4, 5]}}]}
+
+==================================================
+Código: let largura : Int = 8; let altura : Int = 5; let area : Int = largura * altura;
+==================================================
+{'op': 'program',
+ 'stmts': [{'op': 'let', 'name': 'largura', 'type': 'Int', 'expr': 8},
+           {'op': 'let', 'name': 'altura', 'type': 'Int', 'expr': 5},
+           {'op': 'let',
+            'name': 'area',
+            'type': 'Int',
+            'expr': {'op': '*',
+                     'args': [{'var': 'largura'}, {'var': 'altura'}]}}]}
