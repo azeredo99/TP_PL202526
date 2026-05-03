@@ -1,0 +1,1059 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> statement
+Rule 1     expr -> expr PLUS expr
+Rule 2     expr -> expr MINUS expr
+Rule 3     expr -> expr TIMES expr
+Rule 4     expr -> expr LT expr
+Rule 5     expr -> expr GT expr
+Rule 6     expr -> expr EQEQ expr
+Rule 7     expr -> LPAREN expr RPAREN
+Rule 8     expr -> NUMBER
+Rule 9     expr -> BOOL
+Rule 10    expr -> ID
+Rule 11    expr -> MINUS NUMBER
+Rule 12    expr -> ID LPAREN expr RPAREN
+Rule 13    statement -> LET ID EQ expr SEMI
+Rule 14    statement -> FUN ID COLON TYPE ARROW TYPE SEMI
+Rule 15    statement -> LET ID ID EQ expr SEMI
+Rule 16    expr -> IF expr THEN expr ELSE expr
+Rule 17    statement -> expr
+
+Terminals, with rules where they appear
+
+ARROW                : 14
+BOOL                 : 9
+COLON                : 14
+ELSE                 : 16
+EQ                   : 13 15
+EQEQ                 : 6
+FUN                  : 14
+GT                   : 5
+ID                   : 10 12 13 14 15 15
+IF                   : 16
+LET                  : 13 15
+LPAREN               : 7 12
+LT                   : 4
+MINUS                : 2 11
+NUMBER               : 8 11
+PLUS                 : 1
+RPAREN               : 7 12
+SEMI                 : 13 14 15
+THEN                 : 16
+TIMES                : 3
+TYPE                 : 14 14
+error                : 
+
+Nonterminals, with rules where they appear
+
+expr                 : 1 1 2 2 3 3 4 4 5 5 6 6 7 12 13 15 16 16 16 17
+statement            : 0
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . statement
+    (13) statement -> . LET ID EQ expr SEMI
+    (14) statement -> . FUN ID COLON TYPE ARROW TYPE SEMI
+    (15) statement -> . LET ID ID EQ expr SEMI
+    (17) statement -> . expr
+    (1) expr -> . expr PLUS expr
+    (2) expr -> . expr MINUS expr
+    (3) expr -> . expr TIMES expr
+    (4) expr -> . expr LT expr
+    (5) expr -> . expr GT expr
+    (6) expr -> . expr EQEQ expr
+    (7) expr -> . LPAREN expr RPAREN
+    (8) expr -> . NUMBER
+    (9) expr -> . BOOL
+    (10) expr -> . ID
+    (11) expr -> . MINUS NUMBER
+    (12) expr -> . ID LPAREN expr RPAREN
+    (16) expr -> . IF expr THEN expr ELSE expr
+
+    LET             shift and go to state 2
+    FUN             shift and go to state 5
+    LPAREN          shift and go to state 7
+    NUMBER          shift and go to state 8
+    BOOL            shift and go to state 9
+    ID              shift and go to state 3
+    MINUS           shift and go to state 6
+    IF              shift and go to state 10
+
+    statement                      shift and go to state 1
+    expr                           shift and go to state 4
+
+state 1
+
+    (0) S' -> statement .
+
+
+
+state 2
+
+    (13) statement -> LET . ID EQ expr SEMI
+    (15) statement -> LET . ID ID EQ expr SEMI
+
+    ID              shift and go to state 11
+
+
+state 3
+
+    (10) expr -> ID .
+    (12) expr -> ID . LPAREN expr RPAREN
+
+    PLUS            reduce using rule 10 (expr -> ID .)
+    MINUS           reduce using rule 10 (expr -> ID .)
+    TIMES           reduce using rule 10 (expr -> ID .)
+    LT              reduce using rule 10 (expr -> ID .)
+    GT              reduce using rule 10 (expr -> ID .)
+    EQEQ            reduce using rule 10 (expr -> ID .)
+    $end            reduce using rule 10 (expr -> ID .)
+    RPAREN          reduce using rule 10 (expr -> ID .)
+    THEN            reduce using rule 10 (expr -> ID .)
+    SEMI            reduce using rule 10 (expr -> ID .)
+    ELSE            reduce using rule 10 (expr -> ID .)
+    LPAREN          shift and go to state 12
+
+
+state 4
+
+    (17) statement -> expr .
+    (1) expr -> expr . PLUS expr
+    (2) expr -> expr . MINUS expr
+    (3) expr -> expr . TIMES expr
+    (4) expr -> expr . LT expr
+    (5) expr -> expr . GT expr
+    (6) expr -> expr . EQEQ expr
+
+    $end            reduce using rule 17 (statement -> expr .)
+    PLUS            shift and go to state 13
+    MINUS           shift and go to state 14
+    TIMES           shift and go to state 15
+    LT              shift and go to state 16
+    GT              shift and go to state 17
+    EQEQ            shift and go to state 18
+
+
+state 5
+
+    (14) statement -> FUN . ID COLON TYPE ARROW TYPE SEMI
+
+    ID              shift and go to state 19
+
+
+state 6
+
+    (11) expr -> MINUS . NUMBER
+
+    NUMBER          shift and go to state 20
+
+
+state 7
+
+    (7) expr -> LPAREN . expr RPAREN
+    (1) expr -> . expr PLUS expr
+    (2) expr -> . expr MINUS expr
+    (3) expr -> . expr TIMES expr
+    (4) expr -> . expr LT expr
+    (5) expr -> . expr GT expr
+    (6) expr -> . expr EQEQ expr
+    (7) expr -> . LPAREN expr RPAREN
+    (8) expr -> . NUMBER
+    (9) expr -> . BOOL
+    (10) expr -> . ID
+    (11) expr -> . MINUS NUMBER
+    (12) expr -> . ID LPAREN expr RPAREN
+    (16) expr -> . IF expr THEN expr ELSE expr
+
+    LPAREN          shift and go to state 7
+    NUMBER          shift and go to state 8
+    BOOL            shift and go to state 9
+    ID              shift and go to state 3
+    MINUS           shift and go to state 6
+    IF              shift and go to state 10
+
+    expr                           shift and go to state 21
+
+state 8
+
+    (8) expr -> NUMBER .
+
+    PLUS            reduce using rule 8 (expr -> NUMBER .)
+    MINUS           reduce using rule 8 (expr -> NUMBER .)
+    TIMES           reduce using rule 8 (expr -> NUMBER .)
+    LT              reduce using rule 8 (expr -> NUMBER .)
+    GT              reduce using rule 8 (expr -> NUMBER .)
+    EQEQ            reduce using rule 8 (expr -> NUMBER .)
+    $end            reduce using rule 8 (expr -> NUMBER .)
+    RPAREN          reduce using rule 8 (expr -> NUMBER .)
+    THEN            reduce using rule 8 (expr -> NUMBER .)
+    SEMI            reduce using rule 8 (expr -> NUMBER .)
+    ELSE            reduce using rule 8 (expr -> NUMBER .)
+
+
+state 9
+
+    (9) expr -> BOOL .
+
+    PLUS            reduce using rule 9 (expr -> BOOL .)
+    MINUS           reduce using rule 9 (expr -> BOOL .)
+    TIMES           reduce using rule 9 (expr -> BOOL .)
+    LT              reduce using rule 9 (expr -> BOOL .)
+    GT              reduce using rule 9 (expr -> BOOL .)
+    EQEQ            reduce using rule 9 (expr -> BOOL .)
+    $end            reduce using rule 9 (expr -> BOOL .)
+    RPAREN          reduce using rule 9 (expr -> BOOL .)
+    THEN            reduce using rule 9 (expr -> BOOL .)
+    SEMI            reduce using rule 9 (expr -> BOOL .)
+    ELSE            reduce using rule 9 (expr -> BOOL .)
+
+
+state 10
+
+    (16) expr -> IF . expr THEN expr ELSE expr
+    (1) expr -> . expr PLUS expr
+    (2) expr -> . expr MINUS expr
+    (3) expr -> . expr TIMES expr
+    (4) expr -> . expr LT expr
+    (5) expr -> . expr GT expr
+    (6) expr -> . expr EQEQ expr
+    (7) expr -> . LPAREN expr RPAREN
+    (8) expr -> . NUMBER
+    (9) expr -> . BOOL
+    (10) expr -> . ID
+    (11) expr -> . MINUS NUMBER
+    (12) expr -> . ID LPAREN expr RPAREN
+    (16) expr -> . IF expr THEN expr ELSE expr
+
+    LPAREN          shift and go to state 7
+    NUMBER          shift and go to state 8
+    BOOL            shift and go to state 9
+    ID              shift and go to state 3
+    MINUS           shift and go to state 6
+    IF              shift and go to state 10
+
+    expr                           shift and go to state 22
+
+state 11
+
+    (13) statement -> LET ID . EQ expr SEMI
+    (15) statement -> LET ID . ID EQ expr SEMI
+
+    EQ              shift and go to state 24
+    ID              shift and go to state 23
+
+
+state 12
+
+    (12) expr -> ID LPAREN . expr RPAREN
+    (1) expr -> . expr PLUS expr
+    (2) expr -> . expr MINUS expr
+    (3) expr -> . expr TIMES expr
+    (4) expr -> . expr LT expr
+    (5) expr -> . expr GT expr
+    (6) expr -> . expr EQEQ expr
+    (7) expr -> . LPAREN expr RPAREN
+    (8) expr -> . NUMBER
+    (9) expr -> . BOOL
+    (10) expr -> . ID
+    (11) expr -> . MINUS NUMBER
+    (12) expr -> . ID LPAREN expr RPAREN
+    (16) expr -> . IF expr THEN expr ELSE expr
+
+    LPAREN          shift and go to state 7
+    NUMBER          shift and go to state 8
+    BOOL            shift and go to state 9
+    ID              shift and go to state 3
+    MINUS           shift and go to state 6
+    IF              shift and go to state 10
+
+    expr                           shift and go to state 25
+
+state 13
+
+    (1) expr -> expr PLUS . expr
+    (1) expr -> . expr PLUS expr
+    (2) expr -> . expr MINUS expr
+    (3) expr -> . expr TIMES expr
+    (4) expr -> . expr LT expr
+    (5) expr -> . expr GT expr
+    (6) expr -> . expr EQEQ expr
+    (7) expr -> . LPAREN expr RPAREN
+    (8) expr -> . NUMBER
+    (9) expr -> . BOOL
+    (10) expr -> . ID
+    (11) expr -> . MINUS NUMBER
+    (12) expr -> . ID LPAREN expr RPAREN
+    (16) expr -> . IF expr THEN expr ELSE expr
+
+    LPAREN          shift and go to state 7
+    NUMBER          shift and go to state 8
+    BOOL            shift and go to state 9
+    ID              shift and go to state 3
+    MINUS           shift and go to state 6
+    IF              shift and go to state 10
+
+    expr                           shift and go to state 26
+
+state 14
+
+    (2) expr -> expr MINUS . expr
+    (1) expr -> . expr PLUS expr
+    (2) expr -> . expr MINUS expr
+    (3) expr -> . expr TIMES expr
+    (4) expr -> . expr LT expr
+    (5) expr -> . expr GT expr
+    (6) expr -> . expr EQEQ expr
+    (7) expr -> . LPAREN expr RPAREN
+    (8) expr -> . NUMBER
+    (9) expr -> . BOOL
+    (10) expr -> . ID
+    (11) expr -> . MINUS NUMBER
+    (12) expr -> . ID LPAREN expr RPAREN
+    (16) expr -> . IF expr THEN expr ELSE expr
+
+    LPAREN          shift and go to state 7
+    NUMBER          shift and go to state 8
+    BOOL            shift and go to state 9
+    ID              shift and go to state 3
+    MINUS           shift and go to state 6
+    IF              shift and go to state 10
+
+    expr                           shift and go to state 27
+
+state 15
+
+    (3) expr -> expr TIMES . expr
+    (1) expr -> . expr PLUS expr
+    (2) expr -> . expr MINUS expr
+    (3) expr -> . expr TIMES expr
+    (4) expr -> . expr LT expr
+    (5) expr -> . expr GT expr
+    (6) expr -> . expr EQEQ expr
+    (7) expr -> . LPAREN expr RPAREN
+    (8) expr -> . NUMBER
+    (9) expr -> . BOOL
+    (10) expr -> . ID
+    (11) expr -> . MINUS NUMBER
+    (12) expr -> . ID LPAREN expr RPAREN
+    (16) expr -> . IF expr THEN expr ELSE expr
+
+    LPAREN          shift and go to state 7
+    NUMBER          shift and go to state 8
+    BOOL            shift and go to state 9
+    ID              shift and go to state 3
+    MINUS           shift and go to state 6
+    IF              shift and go to state 10
+
+    expr                           shift and go to state 28
+
+state 16
+
+    (4) expr -> expr LT . expr
+    (1) expr -> . expr PLUS expr
+    (2) expr -> . expr MINUS expr
+    (3) expr -> . expr TIMES expr
+    (4) expr -> . expr LT expr
+    (5) expr -> . expr GT expr
+    (6) expr -> . expr EQEQ expr
+    (7) expr -> . LPAREN expr RPAREN
+    (8) expr -> . NUMBER
+    (9) expr -> . BOOL
+    (10) expr -> . ID
+    (11) expr -> . MINUS NUMBER
+    (12) expr -> . ID LPAREN expr RPAREN
+    (16) expr -> . IF expr THEN expr ELSE expr
+
+    LPAREN          shift and go to state 7
+    NUMBER          shift and go to state 8
+    BOOL            shift and go to state 9
+    ID              shift and go to state 3
+    MINUS           shift and go to state 6
+    IF              shift and go to state 10
+
+    expr                           shift and go to state 29
+
+state 17
+
+    (5) expr -> expr GT . expr
+    (1) expr -> . expr PLUS expr
+    (2) expr -> . expr MINUS expr
+    (3) expr -> . expr TIMES expr
+    (4) expr -> . expr LT expr
+    (5) expr -> . expr GT expr
+    (6) expr -> . expr EQEQ expr
+    (7) expr -> . LPAREN expr RPAREN
+    (8) expr -> . NUMBER
+    (9) expr -> . BOOL
+    (10) expr -> . ID
+    (11) expr -> . MINUS NUMBER
+    (12) expr -> . ID LPAREN expr RPAREN
+    (16) expr -> . IF expr THEN expr ELSE expr
+
+    LPAREN          shift and go to state 7
+    NUMBER          shift and go to state 8
+    BOOL            shift and go to state 9
+    ID              shift and go to state 3
+    MINUS           shift and go to state 6
+    IF              shift and go to state 10
+
+    expr                           shift and go to state 30
+
+state 18
+
+    (6) expr -> expr EQEQ . expr
+    (1) expr -> . expr PLUS expr
+    (2) expr -> . expr MINUS expr
+    (3) expr -> . expr TIMES expr
+    (4) expr -> . expr LT expr
+    (5) expr -> . expr GT expr
+    (6) expr -> . expr EQEQ expr
+    (7) expr -> . LPAREN expr RPAREN
+    (8) expr -> . NUMBER
+    (9) expr -> . BOOL
+    (10) expr -> . ID
+    (11) expr -> . MINUS NUMBER
+    (12) expr -> . ID LPAREN expr RPAREN
+    (16) expr -> . IF expr THEN expr ELSE expr
+
+    LPAREN          shift and go to state 7
+    NUMBER          shift and go to state 8
+    BOOL            shift and go to state 9
+    ID              shift and go to state 3
+    MINUS           shift and go to state 6
+    IF              shift and go to state 10
+
+    expr                           shift and go to state 31
+
+state 19
+
+    (14) statement -> FUN ID . COLON TYPE ARROW TYPE SEMI
+
+    COLON           shift and go to state 32
+
+
+state 20
+
+    (11) expr -> MINUS NUMBER .
+
+    PLUS            reduce using rule 11 (expr -> MINUS NUMBER .)
+    MINUS           reduce using rule 11 (expr -> MINUS NUMBER .)
+    TIMES           reduce using rule 11 (expr -> MINUS NUMBER .)
+    LT              reduce using rule 11 (expr -> MINUS NUMBER .)
+    GT              reduce using rule 11 (expr -> MINUS NUMBER .)
+    EQEQ            reduce using rule 11 (expr -> MINUS NUMBER .)
+    $end            reduce using rule 11 (expr -> MINUS NUMBER .)
+    RPAREN          reduce using rule 11 (expr -> MINUS NUMBER .)
+    THEN            reduce using rule 11 (expr -> MINUS NUMBER .)
+    SEMI            reduce using rule 11 (expr -> MINUS NUMBER .)
+    ELSE            reduce using rule 11 (expr -> MINUS NUMBER .)
+
+
+state 21
+
+    (7) expr -> LPAREN expr . RPAREN
+    (1) expr -> expr . PLUS expr
+    (2) expr -> expr . MINUS expr
+    (3) expr -> expr . TIMES expr
+    (4) expr -> expr . LT expr
+    (5) expr -> expr . GT expr
+    (6) expr -> expr . EQEQ expr
+
+    RPAREN          shift and go to state 33
+    PLUS            shift and go to state 13
+    MINUS           shift and go to state 14
+    TIMES           shift and go to state 15
+    LT              shift and go to state 16
+    GT              shift and go to state 17
+    EQEQ            shift and go to state 18
+
+
+state 22
+
+    (16) expr -> IF expr . THEN expr ELSE expr
+    (1) expr -> expr . PLUS expr
+    (2) expr -> expr . MINUS expr
+    (3) expr -> expr . TIMES expr
+    (4) expr -> expr . LT expr
+    (5) expr -> expr . GT expr
+    (6) expr -> expr . EQEQ expr
+
+    THEN            shift and go to state 34
+    PLUS            shift and go to state 13
+    MINUS           shift and go to state 14
+    TIMES           shift and go to state 15
+    LT              shift and go to state 16
+    GT              shift and go to state 17
+    EQEQ            shift and go to state 18
+
+
+state 23
+
+    (15) statement -> LET ID ID . EQ expr SEMI
+
+    EQ              shift and go to state 35
+
+
+state 24
+
+    (13) statement -> LET ID EQ . expr SEMI
+    (1) expr -> . expr PLUS expr
+    (2) expr -> . expr MINUS expr
+    (3) expr -> . expr TIMES expr
+    (4) expr -> . expr LT expr
+    (5) expr -> . expr GT expr
+    (6) expr -> . expr EQEQ expr
+    (7) expr -> . LPAREN expr RPAREN
+    (8) expr -> . NUMBER
+    (9) expr -> . BOOL
+    (10) expr -> . ID
+    (11) expr -> . MINUS NUMBER
+    (12) expr -> . ID LPAREN expr RPAREN
+    (16) expr -> . IF expr THEN expr ELSE expr
+
+    LPAREN          shift and go to state 7
+    NUMBER          shift and go to state 8
+    BOOL            shift and go to state 9
+    ID              shift and go to state 3
+    MINUS           shift and go to state 6
+    IF              shift and go to state 10
+
+    expr                           shift and go to state 36
+
+state 25
+
+    (12) expr -> ID LPAREN expr . RPAREN
+    (1) expr -> expr . PLUS expr
+    (2) expr -> expr . MINUS expr
+    (3) expr -> expr . TIMES expr
+    (4) expr -> expr . LT expr
+    (5) expr -> expr . GT expr
+    (6) expr -> expr . EQEQ expr
+
+    RPAREN          shift and go to state 37
+    PLUS            shift and go to state 13
+    MINUS           shift and go to state 14
+    TIMES           shift and go to state 15
+    LT              shift and go to state 16
+    GT              shift and go to state 17
+    EQEQ            shift and go to state 18
+
+
+state 26
+
+    (1) expr -> expr PLUS expr .
+    (1) expr -> expr . PLUS expr
+    (2) expr -> expr . MINUS expr
+    (3) expr -> expr . TIMES expr
+    (4) expr -> expr . LT expr
+    (5) expr -> expr . GT expr
+    (6) expr -> expr . EQEQ expr
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for TIMES resolved as shift
+  ! shift/reduce conflict for LT resolved as shift
+  ! shift/reduce conflict for GT resolved as shift
+  ! shift/reduce conflict for EQEQ resolved as shift
+    $end            reduce using rule 1 (expr -> expr PLUS expr .)
+    RPAREN          reduce using rule 1 (expr -> expr PLUS expr .)
+    THEN            reduce using rule 1 (expr -> expr PLUS expr .)
+    SEMI            reduce using rule 1 (expr -> expr PLUS expr .)
+    ELSE            reduce using rule 1 (expr -> expr PLUS expr .)
+    PLUS            shift and go to state 13
+    MINUS           shift and go to state 14
+    TIMES           shift and go to state 15
+    LT              shift and go to state 16
+    GT              shift and go to state 17
+    EQEQ            shift and go to state 18
+
+  ! PLUS            [ reduce using rule 1 (expr -> expr PLUS expr .) ]
+  ! MINUS           [ reduce using rule 1 (expr -> expr PLUS expr .) ]
+  ! TIMES           [ reduce using rule 1 (expr -> expr PLUS expr .) ]
+  ! LT              [ reduce using rule 1 (expr -> expr PLUS expr .) ]
+  ! GT              [ reduce using rule 1 (expr -> expr PLUS expr .) ]
+  ! EQEQ            [ reduce using rule 1 (expr -> expr PLUS expr .) ]
+
+
+state 27
+
+    (2) expr -> expr MINUS expr .
+    (1) expr -> expr . PLUS expr
+    (2) expr -> expr . MINUS expr
+    (3) expr -> expr . TIMES expr
+    (4) expr -> expr . LT expr
+    (5) expr -> expr . GT expr
+    (6) expr -> expr . EQEQ expr
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for TIMES resolved as shift
+  ! shift/reduce conflict for LT resolved as shift
+  ! shift/reduce conflict for GT resolved as shift
+  ! shift/reduce conflict for EQEQ resolved as shift
+    $end            reduce using rule 2 (expr -> expr MINUS expr .)
+    RPAREN          reduce using rule 2 (expr -> expr MINUS expr .)
+    THEN            reduce using rule 2 (expr -> expr MINUS expr .)
+    SEMI            reduce using rule 2 (expr -> expr MINUS expr .)
+    ELSE            reduce using rule 2 (expr -> expr MINUS expr .)
+    PLUS            shift and go to state 13
+    MINUS           shift and go to state 14
+    TIMES           shift and go to state 15
+    LT              shift and go to state 16
+    GT              shift and go to state 17
+    EQEQ            shift and go to state 18
+
+  ! PLUS            [ reduce using rule 2 (expr -> expr MINUS expr .) ]
+  ! MINUS           [ reduce using rule 2 (expr -> expr MINUS expr .) ]
+  ! TIMES           [ reduce using rule 2 (expr -> expr MINUS expr .) ]
+  ! LT              [ reduce using rule 2 (expr -> expr MINUS expr .) ]
+  ! GT              [ reduce using rule 2 (expr -> expr MINUS expr .) ]
+  ! EQEQ            [ reduce using rule 2 (expr -> expr MINUS expr .) ]
+
+
+state 28
+
+    (3) expr -> expr TIMES expr .
+    (1) expr -> expr . PLUS expr
+    (2) expr -> expr . MINUS expr
+    (3) expr -> expr . TIMES expr
+    (4) expr -> expr . LT expr
+    (5) expr -> expr . GT expr
+    (6) expr -> expr . EQEQ expr
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for TIMES resolved as shift
+  ! shift/reduce conflict for LT resolved as shift
+  ! shift/reduce conflict for GT resolved as shift
+  ! shift/reduce conflict for EQEQ resolved as shift
+    $end            reduce using rule 3 (expr -> expr TIMES expr .)
+    RPAREN          reduce using rule 3 (expr -> expr TIMES expr .)
+    THEN            reduce using rule 3 (expr -> expr TIMES expr .)
+    SEMI            reduce using rule 3 (expr -> expr TIMES expr .)
+    ELSE            reduce using rule 3 (expr -> expr TIMES expr .)
+    PLUS            shift and go to state 13
+    MINUS           shift and go to state 14
+    TIMES           shift and go to state 15
+    LT              shift and go to state 16
+    GT              shift and go to state 17
+    EQEQ            shift and go to state 18
+
+  ! PLUS            [ reduce using rule 3 (expr -> expr TIMES expr .) ]
+  ! MINUS           [ reduce using rule 3 (expr -> expr TIMES expr .) ]
+  ! TIMES           [ reduce using rule 3 (expr -> expr TIMES expr .) ]
+  ! LT              [ reduce using rule 3 (expr -> expr TIMES expr .) ]
+  ! GT              [ reduce using rule 3 (expr -> expr TIMES expr .) ]
+  ! EQEQ            [ reduce using rule 3 (expr -> expr TIMES expr .) ]
+
+
+state 29
+
+    (4) expr -> expr LT expr .
+    (1) expr -> expr . PLUS expr
+    (2) expr -> expr . MINUS expr
+    (3) expr -> expr . TIMES expr
+    (4) expr -> expr . LT expr
+    (5) expr -> expr . GT expr
+    (6) expr -> expr . EQEQ expr
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for TIMES resolved as shift
+  ! shift/reduce conflict for LT resolved as shift
+  ! shift/reduce conflict for GT resolved as shift
+  ! shift/reduce conflict for EQEQ resolved as shift
+    $end            reduce using rule 4 (expr -> expr LT expr .)
+    RPAREN          reduce using rule 4 (expr -> expr LT expr .)
+    THEN            reduce using rule 4 (expr -> expr LT expr .)
+    SEMI            reduce using rule 4 (expr -> expr LT expr .)
+    ELSE            reduce using rule 4 (expr -> expr LT expr .)
+    PLUS            shift and go to state 13
+    MINUS           shift and go to state 14
+    TIMES           shift and go to state 15
+    LT              shift and go to state 16
+    GT              shift and go to state 17
+    EQEQ            shift and go to state 18
+
+  ! PLUS            [ reduce using rule 4 (expr -> expr LT expr .) ]
+  ! MINUS           [ reduce using rule 4 (expr -> expr LT expr .) ]
+  ! TIMES           [ reduce using rule 4 (expr -> expr LT expr .) ]
+  ! LT              [ reduce using rule 4 (expr -> expr LT expr .) ]
+  ! GT              [ reduce using rule 4 (expr -> expr LT expr .) ]
+  ! EQEQ            [ reduce using rule 4 (expr -> expr LT expr .) ]
+
+
+state 30
+
+    (5) expr -> expr GT expr .
+    (1) expr -> expr . PLUS expr
+    (2) expr -> expr . MINUS expr
+    (3) expr -> expr . TIMES expr
+    (4) expr -> expr . LT expr
+    (5) expr -> expr . GT expr
+    (6) expr -> expr . EQEQ expr
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for TIMES resolved as shift
+  ! shift/reduce conflict for LT resolved as shift
+  ! shift/reduce conflict for GT resolved as shift
+  ! shift/reduce conflict for EQEQ resolved as shift
+    $end            reduce using rule 5 (expr -> expr GT expr .)
+    RPAREN          reduce using rule 5 (expr -> expr GT expr .)
+    THEN            reduce using rule 5 (expr -> expr GT expr .)
+    SEMI            reduce using rule 5 (expr -> expr GT expr .)
+    ELSE            reduce using rule 5 (expr -> expr GT expr .)
+    PLUS            shift and go to state 13
+    MINUS           shift and go to state 14
+    TIMES           shift and go to state 15
+    LT              shift and go to state 16
+    GT              shift and go to state 17
+    EQEQ            shift and go to state 18
+
+  ! PLUS            [ reduce using rule 5 (expr -> expr GT expr .) ]
+  ! MINUS           [ reduce using rule 5 (expr -> expr GT expr .) ]
+  ! TIMES           [ reduce using rule 5 (expr -> expr GT expr .) ]
+  ! LT              [ reduce using rule 5 (expr -> expr GT expr .) ]
+  ! GT              [ reduce using rule 5 (expr -> expr GT expr .) ]
+  ! EQEQ            [ reduce using rule 5 (expr -> expr GT expr .) ]
+
+
+state 31
+
+    (6) expr -> expr EQEQ expr .
+    (1) expr -> expr . PLUS expr
+    (2) expr -> expr . MINUS expr
+    (3) expr -> expr . TIMES expr
+    (4) expr -> expr . LT expr
+    (5) expr -> expr . GT expr
+    (6) expr -> expr . EQEQ expr
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for TIMES resolved as shift
+  ! shift/reduce conflict for LT resolved as shift
+  ! shift/reduce conflict for GT resolved as shift
+  ! shift/reduce conflict for EQEQ resolved as shift
+    $end            reduce using rule 6 (expr -> expr EQEQ expr .)
+    RPAREN          reduce using rule 6 (expr -> expr EQEQ expr .)
+    THEN            reduce using rule 6 (expr -> expr EQEQ expr .)
+    SEMI            reduce using rule 6 (expr -> expr EQEQ expr .)
+    ELSE            reduce using rule 6 (expr -> expr EQEQ expr .)
+    PLUS            shift and go to state 13
+    MINUS           shift and go to state 14
+    TIMES           shift and go to state 15
+    LT              shift and go to state 16
+    GT              shift and go to state 17
+    EQEQ            shift and go to state 18
+
+  ! PLUS            [ reduce using rule 6 (expr -> expr EQEQ expr .) ]
+  ! MINUS           [ reduce using rule 6 (expr -> expr EQEQ expr .) ]
+  ! TIMES           [ reduce using rule 6 (expr -> expr EQEQ expr .) ]
+  ! LT              [ reduce using rule 6 (expr -> expr EQEQ expr .) ]
+  ! GT              [ reduce using rule 6 (expr -> expr EQEQ expr .) ]
+  ! EQEQ            [ reduce using rule 6 (expr -> expr EQEQ expr .) ]
+
+
+state 32
+
+    (14) statement -> FUN ID COLON . TYPE ARROW TYPE SEMI
+
+    TYPE            shift and go to state 38
+
+
+state 33
+
+    (7) expr -> LPAREN expr RPAREN .
+
+    PLUS            reduce using rule 7 (expr -> LPAREN expr RPAREN .)
+    MINUS           reduce using rule 7 (expr -> LPAREN expr RPAREN .)
+    TIMES           reduce using rule 7 (expr -> LPAREN expr RPAREN .)
+    LT              reduce using rule 7 (expr -> LPAREN expr RPAREN .)
+    GT              reduce using rule 7 (expr -> LPAREN expr RPAREN .)
+    EQEQ            reduce using rule 7 (expr -> LPAREN expr RPAREN .)
+    $end            reduce using rule 7 (expr -> LPAREN expr RPAREN .)
+    RPAREN          reduce using rule 7 (expr -> LPAREN expr RPAREN .)
+    THEN            reduce using rule 7 (expr -> LPAREN expr RPAREN .)
+    SEMI            reduce using rule 7 (expr -> LPAREN expr RPAREN .)
+    ELSE            reduce using rule 7 (expr -> LPAREN expr RPAREN .)
+
+
+state 34
+
+    (16) expr -> IF expr THEN . expr ELSE expr
+    (1) expr -> . expr PLUS expr
+    (2) expr -> . expr MINUS expr
+    (3) expr -> . expr TIMES expr
+    (4) expr -> . expr LT expr
+    (5) expr -> . expr GT expr
+    (6) expr -> . expr EQEQ expr
+    (7) expr -> . LPAREN expr RPAREN
+    (8) expr -> . NUMBER
+    (9) expr -> . BOOL
+    (10) expr -> . ID
+    (11) expr -> . MINUS NUMBER
+    (12) expr -> . ID LPAREN expr RPAREN
+    (16) expr -> . IF expr THEN expr ELSE expr
+
+    LPAREN          shift and go to state 7
+    NUMBER          shift and go to state 8
+    BOOL            shift and go to state 9
+    ID              shift and go to state 3
+    MINUS           shift and go to state 6
+    IF              shift and go to state 10
+
+    expr                           shift and go to state 39
+
+state 35
+
+    (15) statement -> LET ID ID EQ . expr SEMI
+    (1) expr -> . expr PLUS expr
+    (2) expr -> . expr MINUS expr
+    (3) expr -> . expr TIMES expr
+    (4) expr -> . expr LT expr
+    (5) expr -> . expr GT expr
+    (6) expr -> . expr EQEQ expr
+    (7) expr -> . LPAREN expr RPAREN
+    (8) expr -> . NUMBER
+    (9) expr -> . BOOL
+    (10) expr -> . ID
+    (11) expr -> . MINUS NUMBER
+    (12) expr -> . ID LPAREN expr RPAREN
+    (16) expr -> . IF expr THEN expr ELSE expr
+
+    LPAREN          shift and go to state 7
+    NUMBER          shift and go to state 8
+    BOOL            shift and go to state 9
+    ID              shift and go to state 3
+    MINUS           shift and go to state 6
+    IF              shift and go to state 10
+
+    expr                           shift and go to state 40
+
+state 36
+
+    (13) statement -> LET ID EQ expr . SEMI
+    (1) expr -> expr . PLUS expr
+    (2) expr -> expr . MINUS expr
+    (3) expr -> expr . TIMES expr
+    (4) expr -> expr . LT expr
+    (5) expr -> expr . GT expr
+    (6) expr -> expr . EQEQ expr
+
+    SEMI            shift and go to state 41
+    PLUS            shift and go to state 13
+    MINUS           shift and go to state 14
+    TIMES           shift and go to state 15
+    LT              shift and go to state 16
+    GT              shift and go to state 17
+    EQEQ            shift and go to state 18
+
+
+state 37
+
+    (12) expr -> ID LPAREN expr RPAREN .
+
+    PLUS            reduce using rule 12 (expr -> ID LPAREN expr RPAREN .)
+    MINUS           reduce using rule 12 (expr -> ID LPAREN expr RPAREN .)
+    TIMES           reduce using rule 12 (expr -> ID LPAREN expr RPAREN .)
+    LT              reduce using rule 12 (expr -> ID LPAREN expr RPAREN .)
+    GT              reduce using rule 12 (expr -> ID LPAREN expr RPAREN .)
+    EQEQ            reduce using rule 12 (expr -> ID LPAREN expr RPAREN .)
+    $end            reduce using rule 12 (expr -> ID LPAREN expr RPAREN .)
+    RPAREN          reduce using rule 12 (expr -> ID LPAREN expr RPAREN .)
+    THEN            reduce using rule 12 (expr -> ID LPAREN expr RPAREN .)
+    SEMI            reduce using rule 12 (expr -> ID LPAREN expr RPAREN .)
+    ELSE            reduce using rule 12 (expr -> ID LPAREN expr RPAREN .)
+
+
+state 38
+
+    (14) statement -> FUN ID COLON TYPE . ARROW TYPE SEMI
+
+    ARROW           shift and go to state 42
+
+
+state 39
+
+    (16) expr -> IF expr THEN expr . ELSE expr
+    (1) expr -> expr . PLUS expr
+    (2) expr -> expr . MINUS expr
+    (3) expr -> expr . TIMES expr
+    (4) expr -> expr . LT expr
+    (5) expr -> expr . GT expr
+    (6) expr -> expr . EQEQ expr
+
+    ELSE            shift and go to state 43
+    PLUS            shift and go to state 13
+    MINUS           shift and go to state 14
+    TIMES           shift and go to state 15
+    LT              shift and go to state 16
+    GT              shift and go to state 17
+    EQEQ            shift and go to state 18
+
+
+state 40
+
+    (15) statement -> LET ID ID EQ expr . SEMI
+    (1) expr -> expr . PLUS expr
+    (2) expr -> expr . MINUS expr
+    (3) expr -> expr . TIMES expr
+    (4) expr -> expr . LT expr
+    (5) expr -> expr . GT expr
+    (6) expr -> expr . EQEQ expr
+
+    SEMI            shift and go to state 44
+    PLUS            shift and go to state 13
+    MINUS           shift and go to state 14
+    TIMES           shift and go to state 15
+    LT              shift and go to state 16
+    GT              shift and go to state 17
+    EQEQ            shift and go to state 18
+
+
+state 41
+
+    (13) statement -> LET ID EQ expr SEMI .
+
+    $end            reduce using rule 13 (statement -> LET ID EQ expr SEMI .)
+
+
+state 42
+
+    (14) statement -> FUN ID COLON TYPE ARROW . TYPE SEMI
+
+    TYPE            shift and go to state 45
+
+
+state 43
+
+    (16) expr -> IF expr THEN expr ELSE . expr
+    (1) expr -> . expr PLUS expr
+    (2) expr -> . expr MINUS expr
+    (3) expr -> . expr TIMES expr
+    (4) expr -> . expr LT expr
+    (5) expr -> . expr GT expr
+    (6) expr -> . expr EQEQ expr
+    (7) expr -> . LPAREN expr RPAREN
+    (8) expr -> . NUMBER
+    (9) expr -> . BOOL
+    (10) expr -> . ID
+    (11) expr -> . MINUS NUMBER
+    (12) expr -> . ID LPAREN expr RPAREN
+    (16) expr -> . IF expr THEN expr ELSE expr
+
+    LPAREN          shift and go to state 7
+    NUMBER          shift and go to state 8
+    BOOL            shift and go to state 9
+    ID              shift and go to state 3
+    MINUS           shift and go to state 6
+    IF              shift and go to state 10
+
+    expr                           shift and go to state 46
+
+state 44
+
+    (15) statement -> LET ID ID EQ expr SEMI .
+
+    $end            reduce using rule 15 (statement -> LET ID ID EQ expr SEMI .)
+
+
+state 45
+
+    (14) statement -> FUN ID COLON TYPE ARROW TYPE . SEMI
+
+    SEMI            shift and go to state 47
+
+
+state 46
+
+    (16) expr -> IF expr THEN expr ELSE expr .
+    (1) expr -> expr . PLUS expr
+    (2) expr -> expr . MINUS expr
+    (3) expr -> expr . TIMES expr
+    (4) expr -> expr . LT expr
+    (5) expr -> expr . GT expr
+    (6) expr -> expr . EQEQ expr
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for TIMES resolved as shift
+  ! shift/reduce conflict for LT resolved as shift
+  ! shift/reduce conflict for GT resolved as shift
+  ! shift/reduce conflict for EQEQ resolved as shift
+    $end            reduce using rule 16 (expr -> IF expr THEN expr ELSE expr .)
+    RPAREN          reduce using rule 16 (expr -> IF expr THEN expr ELSE expr .)
+    THEN            reduce using rule 16 (expr -> IF expr THEN expr ELSE expr .)
+    SEMI            reduce using rule 16 (expr -> IF expr THEN expr ELSE expr .)
+    ELSE            reduce using rule 16 (expr -> IF expr THEN expr ELSE expr .)
+    PLUS            shift and go to state 13
+    MINUS           shift and go to state 14
+    TIMES           shift and go to state 15
+    LT              shift and go to state 16
+    GT              shift and go to state 17
+    EQEQ            shift and go to state 18
+
+  ! PLUS            [ reduce using rule 16 (expr -> IF expr THEN expr ELSE expr .) ]
+  ! MINUS           [ reduce using rule 16 (expr -> IF expr THEN expr ELSE expr .) ]
+  ! TIMES           [ reduce using rule 16 (expr -> IF expr THEN expr ELSE expr .) ]
+  ! LT              [ reduce using rule 16 (expr -> IF expr THEN expr ELSE expr .) ]
+  ! GT              [ reduce using rule 16 (expr -> IF expr THEN expr ELSE expr .) ]
+  ! EQEQ            [ reduce using rule 16 (expr -> IF expr THEN expr ELSE expr .) ]
+
+
+state 47
+
+    (14) statement -> FUN ID COLON TYPE ARROW TYPE SEMI .
+
+    $end            reduce using rule 14 (statement -> FUN ID COLON TYPE ARROW TYPE SEMI .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for PLUS in state 26 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 26 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 26 resolved as shift
+WARNING: shift/reduce conflict for LT in state 26 resolved as shift
+WARNING: shift/reduce conflict for GT in state 26 resolved as shift
+WARNING: shift/reduce conflict for EQEQ in state 26 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 27 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 27 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 27 resolved as shift
+WARNING: shift/reduce conflict for LT in state 27 resolved as shift
+WARNING: shift/reduce conflict for GT in state 27 resolved as shift
+WARNING: shift/reduce conflict for EQEQ in state 27 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 28 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 28 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 28 resolved as shift
+WARNING: shift/reduce conflict for LT in state 28 resolved as shift
+WARNING: shift/reduce conflict for GT in state 28 resolved as shift
+WARNING: shift/reduce conflict for EQEQ in state 28 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 29 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 29 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 29 resolved as shift
+WARNING: shift/reduce conflict for LT in state 29 resolved as shift
+WARNING: shift/reduce conflict for GT in state 29 resolved as shift
+WARNING: shift/reduce conflict for EQEQ in state 29 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 30 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 30 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 30 resolved as shift
+WARNING: shift/reduce conflict for LT in state 30 resolved as shift
+WARNING: shift/reduce conflict for GT in state 30 resolved as shift
+WARNING: shift/reduce conflict for EQEQ in state 30 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 31 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 31 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 31 resolved as shift
+WARNING: shift/reduce conflict for LT in state 31 resolved as shift
+WARNING: shift/reduce conflict for GT in state 31 resolved as shift
+WARNING: shift/reduce conflict for EQEQ in state 31 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 46 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 46 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 46 resolved as shift
+WARNING: shift/reduce conflict for LT in state 46 resolved as shift
+WARNING: shift/reduce conflict for GT in state 46 resolved as shift
+WARNING: shift/reduce conflict for EQEQ in state 46 resolved as shift
