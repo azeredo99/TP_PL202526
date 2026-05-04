@@ -26,6 +26,20 @@ t_SEMI = r';'
 t_COLON = r':'
 t_ARROW = r'->'
 
+# PALAVRAS RESERVADAS (ANTES DO ID)
+
+def t_IF(t):
+    r'if'
+    return t
+
+def t_THEN(t):
+    r'then'
+    return t
+
+def t_ELSE(t):
+    r'else'
+    return t
+
 def t_FUN(t):
     r'fun'
     return t
@@ -58,17 +72,4 @@ def t_error(t):
     print("Erro léxico:", t.value[0])
     t.lexer.skip(1)
 
-def t_IF(t):
-    r'if'
-    return t
-
-def t_THEN(t):
-    r'then'
-    return t
-
-def t_ELSE(t):
-    r'else'
-    return t
-
-# ⚠️ IMPORTANTE: só aqui no fim!
 lexer = lex.lex()
