@@ -1,5 +1,5 @@
 from eval import evaluate
-from parser import parse
+from D.grammar import parse
 
 
 def main():
