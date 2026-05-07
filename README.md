@@ -4,7 +4,7 @@ Este repositório contém a resolução do trabalho prático da unidade curricul
 
 O objetivo principal deste projeto é desenvolver um analisador léxico, sintático e um interpretador/avaliador para a linguagem especificada no enunciado (**LFun**).
 
-## 🗂 Estrutura do Projeto
+##  Estrutura do Projeto
 
 O projeto foi desenvolvido de forma incremental e está dividido em quatro pastas principais (A, B, C e D), correspondentes às fases da avaliação:
 
@@ -28,11 +28,11 @@ A fase final e mais avançada do projeto. Introduz uma **Representação Interm�
 - **Pattern Matching Robusto:** Suporte completo a blocos `match`, permitindo validações por literais, alternativas, wildcards (`_`) e captura de variáveis.
 - **Avaliador Desacoplado:** Avaliação das instruções (`eval.py`) operando exclusivamente sobre a AST.
 
-## 🛠 Tecnologias Utilizadas
+##  Tecnologias Utilizadas
 - **Python 3**
 - **PLY (Python Lex-Yacc):** Utilizado para a construção do Lexer e Parser.
 
-## 🚀 Como Executar
+##  Como Executar
 
 A versão mais completa e funcional do projeto encontra-se na **Parte D**. Para testar o interpretador de forma interativa (REPL), execute no diretório principal:
 
