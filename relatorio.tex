@@ -10,6 +10,12 @@
 \usepackage{float}
 \usepackage{array}
 \usepackage{tabularx}
+\usepackage{hyperref}
+\usepackage[portuguese]{babel}
+\usepackage{url}      
+
+
+
 
 % Code highlighting
 \lstset{
@@ -533,7 +539,6 @@ A escolha de utilizar uma AST genérica desde o início mostrou-se acertada, per
 
 \newpage
 \appendix
-
 \chapter{Estrutura de Ficheiros}
 
 \begin{lstlisting}
@@ -568,4 +573,20 @@ TP_PL202526/
 │       └── test_eval_pytest.py
 \end{lstlisting}
 
+\hypersetup{
+    colorlinks=true,   
+    linkcolor=black,   
+    urlcolor=blue,  
+    citecolor=black
+}
+
+\chapter{Repositório GitHub}
+
+O código fonte, histórico de versões e documentação complementar deste trabalho estão disponíveis publicamente no GitHub através do seguinte link:
+
+\vspace{0.5cm}
+\centering
+\fbox{
+    \href{https://github.com/azeredo99/TP_PL202526.git}{\faGithub\ ://github.com\_PL202526}
+}
 \end{document}
