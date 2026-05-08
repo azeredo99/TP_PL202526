@@ -1,4 +1,4 @@
-from D.grammar import parse
+from grammar import parse
 from eval import evaluate
 
 

@@ -1,5 +1,5 @@
 from eval import evaluate
-from D.grammar import parse
+from grammar import parse
 
 
 def main():
@@ -11,10 +11,13 @@ def main():
 			if not source.strip():
 				continue
 
-			ast = parse(source)
-			result = evaluate(ast)
-			if result is not None:
-				print(result)
+			try:
+				ast = parse(source)
+				result = evaluate(ast)
+				if result is not None:
+					print(result)
+			except Exception as exc:
+				print(f"Error: {exc}")
 		except EOFError:
 			break
 		except KeyboardInterrupt:

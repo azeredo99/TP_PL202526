@@ -1,0 +1,571 @@
+\documentclass[11pt,a4paper]{report}
+\usepackage[portuguese]{babel}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{array}
+\usepackage{tabularx}
+
+% Code highlighting
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{gray},
+    stringstyle=\color{red},
+    breaklines=true,
+    showstringspaces=false,
+    tabsize=4,
+    frame=single,
+    numbers=left,
+    numberstyle=\tiny\color{gray}
+}
+
+% Header and footer
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Processamento de Linguagens}
+\lhead{TP - Linguagem LFun}
+\cfoot{\thepage}
+
+\title{\textbf{Relatório do Trabalho Prático} \\[0.5cm]
+        \large Processamento de Linguagens \\[0.3cm]
+        \large Implementação de Analisador e Interpretador para a Linguagem LFun}
+\author{LESI - 2º Ano, 2º Semestre}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\newpage
+\tableofcontents
+\newpage
+
+% ==================== INTRODUÇÃO ====================
+\chapter{Introdução}
+
+Este relatório documenta o trabalho prático da unidade curricular de \textbf{Processamento de Linguagens}, desenvolvido no contexto da Licenciatura em Engenharia de Sistemas Informáticos (LESI), 2º ano, 2º semestre.
+
+O trabalho centrou-se no desenvolvimento progressivo de um analisador completo para uma linguagem funcional denominada \textbf{LFun} (Language Functional), incluindo componentes de análise léxica, análise sintática, avaliação básica e, finalmente, um sistema robusto com representação intermédia e suporte avançado a padrões.
+
+O projeto foi estruturado em quatro fases incrementais (A, B, C e D), permitindo uma construção gradual e consolidação de conceitos fundamentais no processamento de linguagens.
+
+% ==================== OBJECTIVOS ====================
+\chapter{Objectivos}
+
+O presente trabalho teve como objectivos principais:
+
+\begin{enumerate}
+    \item Compreender e aplicar os conceitos teóricos de processamento de linguagens, nomeadamente:
+    \begin{itemize}
+        \item Análise léxica e tokenização
+        \item Análise sintática e gramáticas formais
+        \item Representação intermédia (IR)
+        \item Avaliação e interpretação de código
+    \end{itemize}
+    
+    \item Implementar um analisador léxico capaz de:
+    \begin{itemize}
+        \item Identificar palavras-chave, operadores e literais
+        \item Processar comentários de linha e bloco
+        \item Gerar tokens correctamente
+    \end{itemize}
+    
+    \item Desenvolver um analisador sintático que:
+    \begin{itemize}
+        \item Verifique a conformidade estrutural do código
+        \item Valide expressões complexas
+        \item Produza uma representação sintáctica válida
+    \end{itemize}
+    
+    \item Criar um interpretador com funcionalidades avançadas:
+    \begin{itemize}
+        \item Avaliação de expressões
+        \item Suporte a pattern matching robusto
+        \item Representação intermédia genérica (AST)
+    \end{itemize}
+    
+    \item Garantir qualidade através de testes abrangentes
+\end{enumerate}
+
+% ==================== ESTRUTURA DO PROJECTO ====================
+\chapter{Estrutura do Projeto}
+
+\section{Organização Geral}
+
+O projeto foi desenvolvido em quatro etapas, cada uma construindo sobre a anterior:
+
+\begin{center}
+\begin{tabularx}{\textwidth}{|p{2cm}|X|p{6cm}|}
+\hline
+\textbf{Parte} & \textbf{Objectivo} & \textbf{Componentes} \\
+\hline
+\textbf{A} & Análise Léxica & lexer.py, lexer\_test \\
+\hline
+\textbf{B} & Análise Sintática & lexer.py, grammar.py, parser \\
+\hline
+\textbf{C} & Avaliação Básica & parser.py, main.py, test \\
+\hline
+\textbf{D} & IR e Pattern Matching & ast\_nodes.py, eval.py, test\_eval.py \\
+\hline
+\end{tabularx}
+\end{center}
+
+\section{Arquitectura do Sistema}
+
+O sistema segue uma arquitetura em camadas:
+\begin{figure}[H]
+\centering
+\begin{lstlisting}
+┌─────────────────────────────────────────┐
+│      Código Fonte (Entrada)             │
+└─────────────────┬───────────────────────┘
+        ┌─────────▼────────────┐
+        │  ANÁLISE LÉXICA      │
+        │  (Lexer)             │
+        │  lexer.py            │
+        └─────────┬────────────┘
+        ┌─────────▼────────────┐
+        │  ANÁLISE SINTÁTICA   │
+        │  (Parser)            │
+        │  parser.py           │
+        └─────────┬────────────┘
+        ┌─────────▼──────────────────────┐
+        │  REPRESENTAÇÃO INTERMÉDIA      │
+        │  (AST - Árvore de Sintaxe      │
+        │   Abstracta)                   │
+        │  ast_nodes.py                  │
+        └─────────┬──────────────────────┘
+        ┌─────────▼────────────┐
+        │  AVALIAÇÃO           │
+        │  (Evaluator)         │
+        │  eval.py             │
+        └─────────┬────────────┘
+        ┌─────────▼───────────────────────┐
+        │  Resultado (Saída)              │
+        └─────────────────────────────────┘
+\end{lstlisting}
+\end{figure}
+\subsection{Componentes Principais}
+
+\subsubsection{Análise Léxica}
+O módulo \texttt{lexer.py} implementa a tokenização do código fonte, identificando:
+\begin{itemize}
+    \item Palavras-chave (let, fun, if, match, etc.)
+    \item Operadores (+, -, *, /, ==, <>, etc.)
+    \item Literais numéricos e booleanos
+    \item Identificadores
+    \item Comentários
+
+
+\end{itemize}
+
+\subsubsection{Análise Sintática}
+O módulo \texttt{parser.py} utiliza a biblioteca PLY (Python Lex-Yacc) para:
+\begin{itemize}
+    \item Processar tokens
+    \item Validar a gramática
+    \item Construir uma Árvore de Sintaxe Abstracta (AST)
+\end{itemize}
+
+\subsubsection{Representação Intermédia}
+O ficheiro \texttt{ast\_nodes.py} define classes para todas as construções:
+\begin{itemize}
+    \item \texttt{NumberLiteral}, \texttt{BoolLiteral}
+    \item \texttt{VarExpr}, \texttt{IfExpr}, \texttt{MatchExpr}
+    \item \texttt{BinOp}, \texttt{UnaryOp}, \texttt{CallExpr}
+    \item Padrões: \texttt{IntPattern}, \texttt{WildcardPattern}, \texttt{VarPattern}
+    \item Definições: \texttt{LetStmt}, \texttt{FunDef}
+\end{itemize}
+
+\subsubsection{Avaliação}
+O módulo \texttt{eval.py} implementa a interpretação de programas:
+\begin{itemize}
+    \item Avaliação recursiva de expressões
+    \item Pattern matching robusto
+    \item Gestão de contexto e variáveis
+    \item Suporte a funções
+\end{itemize}
+
+% ==================== IMPLEMENTAÇÃO ====================
+\chapter{Implementação}
+
+\section{Parte A - Análise Léxica}
+
+A primeira etapa focou-se na construção de um analisador léxico robusto.
+
+\subsection{Funcionalidades}
+
+\begin{itemize}
+    \item Extracção de tokens do código fonte
+    \item Identificação de palavras reservadas
+    \item Reconhecimento de operadores e delimitadores
+    \item Processamento de comentários de linha (\texttt{--}) e bloco (\texttt{\{- -\}})
+    \item Suporte a literais numéricos e booleanos
+\end{itemize}
+
+\subsection{Estrutura do Lexer}
+
+\begin{lstlisting}
+# Exemplo de tokenização
+Entrada: let x = 42 
+Tokens:  ['let', 'x', '=', '42']
+\end{lstlisting}
+
+\vspace{250}
+\section{Parte B - Análise Sintática}
+
+A segunda etapa focou-se na construção da gramática e parser.
+
+\subsection{Gramática}
+
+A gramática define a sintaxe válida para a linguagem LFun:
+
+\begin{lstlisting}
+program : expr
+        | stmt_list
+
+expr : NUMBER
+     | TRUE | FALSE
+     | ID
+     | expr '+' expr
+     | expr '-' expr
+     | expr '*' expr
+     | expr '/' expr
+     | 'if' expr 'then' expr 'else' expr
+     | 'match' expr 'with' case_list
+     | ID '(' expr ')'
+\end{lstlisting}
+
+\subsection{Utilização de PLY}
+
+O projecto utiliza a biblioteca \textbf{PLY} (Python Lex-Yacc) para:
+\begin{itemize}
+    \item Definição declarativa da gramática
+    \item Geração automática do parser
+    \item Tratamento de conflitos de ambiguidade
+    \item Recuperação de erros de sintaxe
+\end{itemize}
+\vspace{270}
+\section{Parte C - Avaliação Básica}
+
+A terceira etapa integrou o parser com um sistema básico de avaliação.
+
+\subsection{Características}
+
+\begin{itemize}
+    \item Interpretação de expressões aritméticas
+    \item Avaliação de expressões condicionais (if-then-else)
+    \item Processamento de padrões simples
+    \item Interface REPL (Read-Eval-Print Loop)
+\end{itemize}
+
+\section{Parte D - Representação Intermédia e Pattern Matching}
+
+A quarta e final etapa implementou um sistema robusto com AST e pattern matching avançado.
+
+\subsection{Nós da AST}
+
+\begin{lstlisting}
+class NumberLiteral(Node):
+    def __init__(self, value):
+        self.value = int(value)
+
+class BoolLiteral(Node):
+    def __init__(self, value):
+        self.value = bool(value)
+
+class VarExpr(Node):
+    def __init__(self, name):
+        self.name = name
+
+class BinOp(Node):
+    def __init__(self, op, left, right):
+        self.op = op
+        self.left = left
+        self.right = right
+
+class MatchExpr(Node):
+    def __init__(self, expr, cases):
+        self.expr = expr
+        self.cases = cases
+
+class Case(Node):
+    def __init__(self, patterns, expr):
+        self.patterns = patterns
+        self.expr = expr
+\end{lstlisting}
+\vspace{70}
+\subsection{Pattern Matching}
+
+O sistema suporta múltiplos tipos de padrões:
+
+\begin{itemize}
+    \item \textbf{Padrões Literais:} Correspondência exacta de valores
+    \item \textbf{Alternativas:} Múltiplos padrões com o operador |
+    \item \textbf{Wildcard:} Símbolo \texttt{\_} para qualquer valor
+    \item \textbf{Captura de Variáveis:} Nomes começados com minúscula
+\end{itemize}
+
+\subsection{Exemplos de Pattern Matching}
+
+\begin{lstlisting}
+# Padrão com alternativas
+match x with
+| 1 | 2 | 3 -> "um, dois ou tres"
+| _ -> "outro valor"
+
+# Captura de variável
+match x with
+| n when n > 0 -> "positivo"
+| n -> n + 1
+
+# Padrão literal com wildcard
+match (x, y) with
+| (0, _) -> "x é zero"
+| (_, 0) -> "y é zero"
+| _ -> "ambos não-zero"
+\end{lstlisting}
+
+\subsection{Avaliação Genérica}
+
+O avaliador opera exclusivamente sobre nós AST:
+
+\begin{lstlisting}
+def evaluate(node, context):
+    if isinstance(node, NumberLiteral):
+        return node.value
+    elif isinstance(node, BoolLiteral):
+        return node.value
+    elif isinstance(node, VarExpr):
+        return context.get(node.name)
+    elif isinstance(node, BinOp):
+        left = evaluate(node.left, context)
+        right = evaluate(node.right, context)
+        return apply_op(node.op, left, right)
+    elif isinstance(node, MatchExpr):
+        return evaluate_match(node, context)
+    # ... outros casos
+\end{lstlisting}
+
+% ==================== TECNOLOGIAS ====================
+\chapter{Tecnologias Utilizadas}
+
+\begin{itemize}
+    \item \textbf{Python 3:} Linguagem de implementação
+    \item \textbf{PLY (Python Lex-Yacc):} Framework para lexer e parser
+    \item \textbf{Pytest:} Framework para testes
+\end{itemize}
+
+% ==================== TESTES ====================
+\chapter{Testes e Validação}
+
+\section{Estratégia de Testes}
+
+O projecto inclui múltiplos níveis de testes:
+
+\subsection{Testes Unitários}
+
+Testes dos componentes individuais através de \texttt{test\_eval.py}:
+
+\begin{lstlisting}
+# Testes básicos
+def test_absolute():
+    assert evaluate("absoluto(-5)") == 5
+    assert evaluate("absoluto(5)") == 5
+
+def test_boolean():
+    assert evaluate("eZero(0)") == True
+    assert evaluate("eZero(1)") == False
+
+def test_alternatives():
+    assert evaluate("avalia(-1)") == True
+    assert evaluate("avalia(0)") == False
+    assert evaluate("avalia(2)") == True
+\end{lstlisting}
+
+\subsection{Cobertura de Testes}
+
+Os testes cobrem:
+\begin{itemize}
+    \item Expressões aritméticas
+    \item Expressões booleanas
+    \item Padrões literais
+    \item Padrões com alternativas
+    \item Wildcard patterns
+    \item Captura de variáveis
+    \item Nested match
+    \item Casos não-exaustivos
+\end{itemize}
+
+\section{Resultados de Teste}
+
+Exemplos de execução bem-sucedida:
+
+\begin{lstlisting}
+absoluto(-5) = 5
+absoluto(5) = 5
+eZero(0) = True
+eZero(1) = False
+avalia(-1) = True
+avalia(0) = False
+avalia(2) = True
+sign(-5) = -1
+sign(0) = 0
+sign(7) = 1
+\end{lstlisting}
+
+% ==================== RESULTADOS ====================
+\chapter{Resultados e Demonstração}
+
+\section{Interface REPL}
+
+O projeto inclui um REPL (Read-Eval-Print Loop) interactivo:
+
+\begin{lstlisting}
+$ python D/main.py
+LFun Interpreter 1.0
+Type 'exit' or 'quit' to exit
+
+> let absoluto x = match x with | n when n < 0 -> -n | n -> n
+> absoluto(-10)
+10
+
+> match 5 with | 1 | 2 | 3 -> "pequeno" | _ -> "grande"
+"grande"
+\end{lstlisting}
+
+\section{Exemplo Completo}
+
+Um exemplo demonstrando vários aspetos da linguagem:
+
+\begin{lstlisting}
+-- Definição de função com pattern matching
+let sign x = match x with
+| 0 -> 0
+| n when n < 0 -> -1
+| _ -> 1
+
+-- Utilização da função
+sign(-5)    -- retorna: -1
+sign(0)     -- retorna: 0
+sign(7)     -- retorna: 1
+
+-- Pattern matching com alternativas
+match 2 with
+| 1 | 2 | 3 -> "um dois ou três"
+| _ -> "outro"
+-- retorna: "um dois ou três"
+
+-- Expressões condicionais
+if 5 > 3 then "verdadeiro" else "falso"
+-- retorna: "verdadeiro"
+\end{lstlisting}
+
+\section{Conformidade com Requisitos}
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{|p{3cm}|p{2cm}|X|}
+\hline
+\textbf{Requisito} & \textbf{Status} & \textbf{Evidência} \\
+\hline
+Pattern Matching (literal, alternativas, wildcard, captura) & ✓ & test\_eval\_more.py \\
+\hline
+Representação Intermédia Genérica & ✓ & ast\_nodes.py \\
+\hline
+Avaliação sobre IR & ✓ & eval.py \\
+\hline
+Suporte a Funções & ✓ & let, fun, signatures \\
+\hline
+Testes Abrangentes & ✓ & test\_eval.py, test/ \\
+\hline
+Qualidade de Código & ✓ & Sem código duplicado \\
+\hline
+\end{tabularx}
+\end{table}
+
+% ==================== CONCLUSÃO ====================
+\chapter{Conclusão}
+
+Este trabalho prático permitiu consolidar conhecimentos fundamentais sobre processamento de linguagens, desde a análise léxica até à interpretação avançada com representação intermédia.
+
+\section{Aprendizagens Principais}
+
+\begin{enumerate}
+    \item \textbf{Separação de Responsabilidades:} Cada etapa (lexer, parser, AST, avaliador) tem um papel bem definido
+    \item \textbf{Representação Intermédia:} Decisão crítica de usar AST em vez de dicionários permite maior flexibilidade
+    \item \textbf{Pattern Matching:} Implementação robusto de múltiplos tipos de padrões
+    \item \textbf{Testes:} Importância de cobertura abrangente para validar comportamento
+\end{enumerate}
+
+\section{Funcionalidades Implementadas}
+
+\begin{itemize}
+    \item Análise léxica completa com suporte a comentários
+    \item Parser robusto com tratamento de ambiguidades
+    \item Representação Intermédia genérica (AST)
+    \item Avaliador recursivo com pattern matching avançado
+    \item Suporte a funções e assinaturas de tipo
+    \item REPL interactivo
+    \item Suite de testes abrangente
+\end{itemize}
+
+\section{Possíveis Melhorias Futuras}
+
+\begin{itemize}
+    \item Optimizações de performance (compilação ou caching)
+    \item Geração de código intermediário (bytecode)
+    \item Tratamento de erros mais informativo
+\end{itemize}
+
+\section{Reflexão Final}
+
+O projecto foi realizado com sucesso, cumprindo todos os requisitos especificados. O sistema implementado é robusto, bem-estruturado e facilmente extensível. A arquitectura em camadas permite fáceis mudanças futuras sem afectar outras partes do sistema.
+
+A escolha de utilizar uma AST genérica desde o início mostrou-se acertada, permitindo operações de transformação e análise sofisticadas no futuro.
+
+\newpage
+\appendix
+
+\chapter{Estrutura de Ficheiros}
+
+\begin{lstlisting}
+TP_PL202526/
+├── README.md
+├── pl-tp-enunciado_pub.pdf
+├── A/
+│   ├── lexer.py
+│   └── lexer_test
+├── B/
+│   ├── lexer.py
+│   ├── grammar.py
+│   ├── parser.py
+│   └── parsetab.py
+├── C/
+│   ├── lexer.py
+│   ├── parser.py
+│   ├── main.py
+│   ├── parsetab.py
+│   └── test
+├── D/
+│   ├── ast_nodes.py
+│   ├── eval.py
+│   ├── grammar.py
+│   ├── lexer.py
+│   ├── main.py
+│   ├── README.md
+│   ├── test_eval.py
+│   ├── test_eval_more.py
+│   ├── run_tests.py
+│   └── test/
+│       └── test_eval_pytest.py
+\end{lstlisting}
+
+\end{document}
