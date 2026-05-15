@@ -17,13 +17,15 @@ from ast_nodes import (
 	UnaryOp,
 	CallExpr,
 	LetStmt,
+	LetExpr,
+	FunExpr,
 	FunDef,
 	Signature,
 )
 
 
 tokens = LFunLexer.tokens
-start = "statement"
+start = "program"
 
 _parser = None
 parser = None
@@ -37,6 +39,16 @@ precedence = (
 	("left", "*", "/"),
 	("right", "UMINUS"),
 )
+
+
+def p_program_single(p):
+	"program : statement"
+	p[0] = [p[1]]
+
+
+def p_program_multi(p):
+	"program : program statement"
+	p[0] = p[1] + [p[2]]
 
 
 def p_statement_expr(p):
@@ -103,6 +115,16 @@ def p_expr_group(p):
 	p[0] = p[2]
 
 
+def p_expr_let_in(p):
+	"expr : LET ID '=' expr IN expr"
+	p[0] = LetExpr(p[2], p[4], p[6])
+
+
+def p_expr_fun(p):
+	"expr : FUN '(' ID ':' type ')' ARROW expr"
+	p[0] = FunExpr(p[3], p[5], p[8])
+
+
 def p_expr_call(p):
 	"expr : ID '(' expr ')'"
 	p[0] = CallExpr(p[1], p[3])
@@ -116,6 +138,11 @@ def p_expr_if(p):
 def p_expr_when(p):
 	"expr : WHEN '(' expr ')' IS case_list END"
 	p[0] = MatchExpr(p[3], p[6])
+
+
+def p_expr_when_braces(p):
+	"expr : WHEN expr '{' case_list '}'"
+	p[0] = MatchExpr(p[2], p[4])
 
 
 def p_expr_number(p):

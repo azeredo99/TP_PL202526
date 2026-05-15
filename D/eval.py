@@ -2,6 +2,8 @@ from ast_nodes import (
 	BoolLiteral,
 	IfExpr,
 	IntPattern,
+	LetExpr,
+	FunExpr,
 	MatchExpr,
 	NumberLiteral,
 	VarExpr,
@@ -13,6 +15,18 @@ from ast_nodes import (
 symbols = {}
 functions = {}
 signatures = {}
+
+
+class _Closure:
+	def __init__(self, arg_name, body, captured_scope):
+		self.arg_name = arg_name
+		self.body = body
+		self.captured_scope = dict(captured_scope or {})
+
+	def call(self, value):
+		next_scope = dict(self.captured_scope)
+		next_scope[self.arg_name] = value
+		return evaluate(self.body, next_scope)
 
 
 def _resolve(name, scope=None):
@@ -53,6 +67,12 @@ def match_case_pattern(pat, value):
 
 
 def evaluate(ast, scope=None):
+	if isinstance(ast, list):
+		result = None
+		for stmt in ast:
+			result = evaluate(stmt, scope)
+		return result
+
 	if isinstance(ast, NumberLiteral):
 		return ast.value
 
@@ -128,13 +148,27 @@ def evaluate(ast, scope=None):
 
 	if isinstance(ast, CallExpr):
 		fname = ast.name
-		if fname not in functions:
-			raise NameError(f"Function {fname} is not defined")
-		arg_name, body = functions[fname]
+		if fname in functions:
+			arg_name, body = functions[fname]
+			arg_value = evaluate(ast.arg, scope)
+			next_scope = dict(scope or {})
+			next_scope[arg_name] = arg_value
+			return evaluate(body, next_scope)
+
+		callee = _resolve(fname, scope)
+		if not isinstance(callee, _Closure):
+			raise TypeError(f"{fname} is not callable")
 		arg_value = evaluate(ast.arg, scope)
+		return callee.call(arg_value)
+
+	if isinstance(ast, FunExpr):
+		return _Closure(ast.arg, ast.body, scope)
+
+	if isinstance(ast, LetExpr):
+		value = evaluate(ast.expr, scope)
 		next_scope = dict(scope or {})
-		next_scope[arg_name] = arg_value
-		return evaluate(body, next_scope)
+		next_scope[ast.name] = value
+		return evaluate(ast.body, next_scope)
 
 	if isinstance(ast, LetStmt):
 		value = evaluate(ast.expr, scope)

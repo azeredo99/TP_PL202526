@@ -17,6 +17,7 @@ class LFunLexer:
     # ─────────────────────────────────────────────
     reserved = {
         'let'   : 'LET',
+        'in'    : 'IN',
         'fun'   : 'FUN',
         'if'    : 'IF',
         'then'  : 'THEN',
@@ -26,6 +27,8 @@ class LFunLexer:
         'end'   : 'END',
         'true'  : 'TRUE',
         'false' : 'FALSE',
+        'int'   : 'TINT',
+        'bool'  : 'TBOOL',
         'Int'   : 'TINT',
         'Bool'  : 'TBOOL',
     }
@@ -45,11 +48,11 @@ class LFunLexer:
         'AND',        # &&
         'OR',         # ||
         'ARROW',      # ->
-    ) + tuple(reserved.values())
+    ) + tuple(dict.fromkeys(reserved.values()))
 
     # Literais: caracteres simples reconhecidos diretamente
     literals = ['+', '-', '*', '/', '<', '>',
-                '=', ':', ';', ',', '(', ')', '_']
+                '=', ':', ';', ',', '(', ')', '_', '{', '}']
 
     # Espaços e tabs ignorados
     t_ignore = ' \t'

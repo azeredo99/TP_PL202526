@@ -1,0 +1,1 @@
+let is_big = fun (x: int) -> x > 10 in if is_big(12) then 1 else 0

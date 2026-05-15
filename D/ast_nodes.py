@@ -92,6 +92,26 @@ class LetStmt(Node):
 		return f"Let({self.name}, {self.type}, {self.expr})"
 
 
+class LetExpr(Node):
+	def __init__(self, name, expr, body):
+		self.name = name
+		self.expr = expr
+		self.body = body
+
+	def __repr__(self):
+		return f"LetExpr({self.name}, {self.expr}, {self.body})"
+
+
+class FunExpr(Node):
+	def __init__(self, arg, arg_type, body):
+		self.arg = arg
+		self.arg_type = arg_type
+		self.body = body
+
+	def __repr__(self):
+		return f"FunExpr({self.arg}, {self.arg_type}, {self.body})"
+
+
 class FunDef(Node):
 	def __init__(self, name, arg, expr, signature=None):
 		self.name = name
