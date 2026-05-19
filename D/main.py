@@ -1,3 +1,11 @@
+"""
+    Processamento de Linguagens
+    Licenciatura em Engenharia de Sistemas Informáticos
+    2025/2026
+
+    Main - Ponto de entrada do interpretador LFun
+"""
+# main.py
 import sys
 
 from eval import evaluate

@@ -1,3 +1,12 @@
+"""
+    Processamento de Linguagens
+    Licenciatura em Engenharia de Sistemas Informáticos
+    2025/2026
+
+    LFunGrammar - Analisador Sintático para a linguagem LFun
+    Fase D: gramática completa (+ when, let-in, fun expr)
+"""
+# grammar.py
 import sys
 
 import ply.yacc as yacc

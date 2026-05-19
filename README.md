@@ -4,64 +4,86 @@ Este repositório contém a resolução do trabalho prático da unidade curricul
 
 O objetivo principal deste projeto é desenvolver um analisador léxico, sintático e um interpretador/avaliador para a linguagem especificada no enunciado (**LFun**).
 
-##  Estrutura do Projeto
+## Estrutura do Projeto
 
 O projeto foi desenvolvido de forma incremental e está dividido em quatro pastas principais (A, B, C e D), correspondentes às fases da avaliação:
 
 ### [Parte A - Análise Léxica](./A/)
-Foco na construção do analisador léxico (**Lexer**).
+Construção do analisador léxico (**Lexer**).
 - Identificação e extração de tokens da linguagem (palavras reservadas, operadores, literais).
 - Suporte a comentários de linha (`--`) e de bloco (`{- -}`).
+- Ficheiros: `lfun_lexer.py`, `lfun_lexer_test.py`
 
-### [Parte B - Análise Sintática](./B/)
-Foco na construção da gramática e do analisador sintático (**Parser**).
-- Definição da gramática da linguagem utilizando a ferramenta PLY (Python Lex-Yacc).
-- Verificação sintática das expressões e validação estrutural.
+### [Parte B - Gramática Básica + AST Nodes](./B/)
+Introdução da gramática e da representação intermédia básica.
+- Gramática para expressões aritméticas, booleanas e definições `let`.
+- Primeiros nós AST: `NumberLiteral`, `BoolLiteral`, `VarExpr`, `BinOp`, `UnaryOp`, `LetStmt`.
+- Ficheiros: `lfun_lexer.py`, `ast_nodes.py`, `lfun_grammar.py`, `lfun_grammar_test.py`
 
-### [Parte C - Avaliação Básica](./C/)
-Integração do parser com um sistema inicial de avaliação.
-- Interpretador capaz de analisar e avaliar as expressões de forma integrada.
+### [Parte C - Gramática Completa](./C/)
+Extensão da gramática com funções, condicionais e chamadas.
+- Adicionadas regras para assinatura de função (`fun f : T -> T`), definição de função (`let f x = E`), condicional (`if ... then ... else`) e chamada (`f(E)`).
+- Novos nós AST: `IfExpr`, `CallExpr`, `FunSig`, `FunDef`.
+- Ficheiros: `lfun_lexer.py`, `ast_nodes.py`, `lfun_grammar.py`, `lfun_grammar_test.py`
 
-### [Parte D - Representação Intermédia e Padrões](./D/)
-A fase final e mais avançada do projeto. Introduz uma **Representação Intermédia (IR)** sob a forma de uma Árvore de Sintaxe Abstrata (AST) e suporte avançado a **Pattern Matching**.
-- **Representação Intermédia Genérica:** Separa a fase de parsing da execução. As instruções são convertidas em nós AST (`ast_nodes.py`).
-- **Pattern Matching Robusto:** Suporte completo a blocos `match`, permitindo validações por literais, alternativas, wildcards (`_`) e captura de variáveis.
-- **Avaliador Desacoplado:** Avaliação das instruções (`eval.py`) operando exclusivamente sobre a AST.
+### [Parte D - Avaliador Completo](./D/)
+Fase final com avaliador e suporte a **Pattern Matching** (`when`).
+- **AST completa:** todos os nós, incluindo `MatchExpr`, `Case`, `IntPattern`, `WildcardPattern`, `VarPattern`, `LetExpr`, `FunExpr`.
+- **Pattern Matching:** blocos `when (expr) is ... end` com literais, alternativas múltiplas (`,`), wildcard (`_`) e captura de variáveis.
+- **Avaliador desacoplado** (`eval.py`) que opera exclusivamente sobre a AST.
+- **Ponto de entrada** (`main.py`) com modo interativo (REPL) e execução de ficheiros `.lfun`.
+- Ficheiros: `lexer.py`, `ast_nodes.py`, `grammar.py`, `eval.py`, `main.py`, `test_eval.py`, `ex1.lfun`–`ex5.lfun`
 
-##  Tecnologias Utilizadas
+## Tecnologias Utilizadas
 - **Python 3**
 - **PLY (Python Lex-Yacc):** Utilizado para a construção do Lexer e Parser.
 
-##  Como Executar
+## Como Executar
 
-A versão mais completa e funcional do projeto encontra-se na **Parte D**. Para testar o interpretador de forma interativa (REPL), execute no diretório principal:
-
+### Parte A — testar o lexer
 ```bash
-python D/main.py
+cd A
+python lfun_lexer_test.py
 ```
 
-### Executar os Testes
-
-Para garantir que tudo funciona como esperado (com foco na Parte D), pode executar os ficheiros de testes disponibilizados:
-
+### Parte B — testar o parser básico
 ```bash
-# Testes básicos das expressões e funções base
-python D/test_eval.py
-
-# Testes extensivos (Pattern matching, captura de variáveis, múltiplos casos, etc.)
-python D/test_eval_more.py
-
-# Test Runner automatizado da Parte D
-python D/run_tests.py
+cd B
+python lfun_grammar_test.py
 ```
 
-##  Funcionalidades da Linguagem (LFun)
-- **Tipos Básicos:** Inteiros numéricos e Booleanos (`true`, `false`).
-- **Operações:** Aritméticas e relacionais completas.
-- **Definições:** Declaração de funções e expressões usando `let`.
-- **Condicionais:** Estruturas de decisão `if ... then ... else`.
-- **Pattern Matching (`match`):**
-  - Casos com valores literais.
-  - Alternativas múltiplas.
-  - Wildcards/omissão (`_`).
-  - Captura e utilização de variáveis nos padrões.
+### Parte C — testar o parser completo
+```bash
+cd C
+python lfun_grammar_test.py
+```
+
+### Parte D — interpretador interativo (REPL)
+```bash
+cd D
+python main.py
+```
+
+### Parte D — executar um ficheiro `.lfun`
+```bash
+cd D
+python main.py ex1.lfun
+```
+
+### Parte D — executar os testes
+```bash
+cd D
+python test_eval.py
+```
+
+## Funcionalidades da Linguagem (LFun)
+- **Tipos Básicos:** Inteiros e Booleanos (`true`, `false`).
+- **Operações:** Aritméticas (`+`, `-`, `*`, `/`), relacionais (`<`, `>`, `<=`, `>=`, `==`, `!=`) e lógicas (`&&`, `||`).
+- **Definições:** Declaração de variáveis (`let x : Int = E`) e funções (`let f x = E`).
+- **Assinaturas de tipo:** `fun f : Int -> Bool`
+- **Condicionais:** `if E then E else E`
+- **Pattern Matching (`when`):**
+  - Casos com valores literais inteiros e booleanos.
+  - Alternativas múltiplas no mesmo caso (`0, 1 -> ...`).
+  - Wildcard (`_`) para captura de qualquer valor.
+  - Captura de variáveis nos padrões.

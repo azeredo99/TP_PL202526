@@ -5,6 +5,7 @@
 
     LFunLexer - Analisador Léxico para a linguagem LFun
 """
+# lexer.py
 import ply.lex as plex
 
 

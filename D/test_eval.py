@@ -1,3 +1,11 @@
+"""
+    Processamento de Linguagens
+    Licenciatura em Engenharia de Sistemas Informáticos
+    2025/2026
+
+    test_eval - Testes do avaliador da linguagem LFun
+"""
+# test_eval.py
 from grammar import parse
 from eval import evaluate
 

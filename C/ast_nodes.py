@@ -4,7 +4,7 @@
 	2025/2026
 
 	AST Nodes - Representação Intermédia da linguagem LFun
-	Cada classe representa um nó da árvore de sintaxe abstrata
+	Fase C: literais, expressões, let, fun, if, chamadas
 """
 # ast_nodes.py
 
@@ -19,7 +19,6 @@ class Node:
 
 # ─────────────────────────────────────────────
 #  LITERAIS
-#  Valores concretos da linguagem
 # ─────────────────────────────────────────────
 
 class NumberLiteral(Node):
@@ -80,14 +79,6 @@ class CallExpr(Node):
 	def __repr__(self):
 		return f"Call({self.name}, {self.arg})"
 
-class MatchExpr(Node):
-	# seleção de casos: when (expr) is ... end
-	def __init__(self, expr, cases):
-		self.expr  = expr
-		self.cases = cases
-	def __repr__(self):
-		return f"Match({self.expr}, {self.cases})"
-
 
 # ─────────────────────────────────────────────
 #  INSTRUÇÕES
@@ -133,35 +124,3 @@ class FunDef(Node):
 		self.body = body
 	def __repr__(self):
 		return f"Fun({self.name} {self.arg} = {self.body})"
-
-
-# ─────────────────────────────────────────────
-#  PADRÕES DO WHEN
-# ─────────────────────────────────────────────
-
-class Case(Node):
-	# caso do when: Pattern -> E ;
-	def __init__(self, pattern, expr):
-		self.pattern = pattern
-		self.expr    = expr
-	def __repr__(self):
-		return f"Case({self.pattern} -> {self.expr})"
-
-class IntPattern(Node):
-	# padrão inteiro: 0, 1, -1, ...
-	def __init__(self, value):
-		self.value = int(value)
-	def __repr__(self):
-		return f"IntPat({self.value})"
-
-class BoolPattern(Node):
-	# padrão booleano: true, false
-	def __init__(self, value):
-		self.value = bool(value)
-	def __repr__(self):
-		return f"BoolPat({self.value})"
-
-class WildcardPattern(Node):
-	# padrão wildcard: _ (corresponde a qualquer valor)
-	def __repr__(self):
-		return "_"

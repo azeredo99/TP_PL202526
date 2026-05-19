@@ -1,3 +1,13 @@
+"""
+    Processamento de Linguagens
+    Licenciatura em Engenharia de Sistemas Informáticos
+    2025/2026
+
+    AST Nodes - Representação Intermédia da linguagem LFun
+    Fase D: todos os nós (literais, expressões, instruções, padrões)
+"""
+# ast_nodes.py
+
 class Node:
 	pass
 

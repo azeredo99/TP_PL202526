@@ -8,6 +8,11 @@
 """
 # lfun_grammar.py
 from lfun_lexer import LFunLexer
+from ast_nodes import (
+	Program, ExprStmt, LetStmt,
+	NumberLiteral, BoolLiteral, VarExpr,
+	BinOp, UnaryOp,
+)
 import ply.yacc as pyacc
 
 
@@ -62,12 +67,11 @@ class LFunGrammar:
 
 	# ─────────────────────────────────────────────
 	#  PROGRAMA
-	#  Um programa é uma sequência de instruções
 	# ─────────────────────────────────────────────
 
 	def p_program(self, p):
 		""" Program : StmtList """
-		p[0] = {'op': 'program', 'stmts': p[1]}
+		p[0] = Program(p[1])
 
 	def p_stmtlist_head(self, p):
 		""" StmtList : Stmt """
@@ -84,13 +88,12 @@ class LFunGrammar:
 	def p_stmt_expr(self, p):
 		""" Stmt : E ';' """
 		# expressão simples: 3 + 4;
-		p[0] = {'op': 'expr', 'args': [p[1]]}
+		p[0] = ExprStmt(p[1])
 
 	def p_stmt_let_val(self, p):
 		""" Stmt : LET ID ':' Type '=' E ';' """
 		# definição de valor: let x : Int = 3 + 4;
-		# args = [nome, tipo, expr]
-		p[0] = {'op': 'let', 'args': [p[2], p[4], p[6]]}
+		p[0] = LetStmt(p[2], p[4], p[6])
 
 	# ─────────────────────────────────────────────
 	#  TIPOS
@@ -121,13 +124,13 @@ class LFunGrammar:
 			  | E NEQ E
 			  | E AND E
 			  | E OR  E """
-		# operação binária: args = [esquerda, direita]
-		p[0] = {'op': p[2], 'args': [p[1], p[3]]}
+		# operação binária
+		p[0] = BinOp(p[2], p[1], p[3])
 
 	def p_expr_uminus(self, p):
 		""" E : '-' E %prec UMINUS """
 		# menos unário: -3
-		p[0] = {'op': 'neg', 'args': [p[2]]}
+		p[0] = UnaryOp('neg', p[2])
 
 	def p_expr_pare(self, p):
 		""" E : '(' E ')' """
@@ -136,21 +139,20 @@ class LFunGrammar:
 
 	def p_expr_num(self, p):
 		""" E : NUMBER """
-		# valor inteiro diretamente
-		p[0] = p[1]
+		p[0] = NumberLiteral(p[1])
 
 	def p_expr_true(self, p):
 		""" E : TRUE """
-		p[0] = True
+		p[0] = BoolLiteral(True)
 
 	def p_expr_false(self, p):
 		""" E : FALSE """
-		p[0] = False
+		p[0] = BoolLiteral(False)
 
 	def p_expr_var(self, p):
 		""" E : ID """
-		# referência a uma variável: x
-		p[0] = {'var': p[1]}
+		# referência a uma variável
+		p[0] = VarExpr(p[1])
 
 	# ─────────────────────────────────────────────
 	#  ERRO SINTÁTICO

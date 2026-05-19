@@ -1,3 +1,11 @@
+"""
+    Processamento de Linguagens
+    Licenciatura em Engenharia de Sistemas Informáticos
+    2025/2026
+
+    Eval - Avaliador da linguagem LFun
+"""
+# eval.py
 from ast_nodes import (
 	BoolLiteral,
 	IfExpr,
